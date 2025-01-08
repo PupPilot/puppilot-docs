@@ -25,7 +25,7 @@ Run the following command at the root of your documentation (where mint.json is)
 mintlify dev
 ```
 
-### Option 2: Local Installation (Alternative Approach)
+#### Option 2: Local Installation (Alternative Approach)
 If you encounter issues with the global installation (e.g., dependency conflicts), you can use `npx` to run Mintlify locally:
 
 1. Install Mintlify as a local dependency:
