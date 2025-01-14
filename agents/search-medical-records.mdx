@@ -1,5 +1,31 @@
 ---
 title: Search Medical Records
-description: Description goes here
-icon: 'dog'
+description: ""
+icon: 'mouse-field'
 ---
+
+VetMed Agents include advanced search capabilities to retrieve information dynamically and accurately, tailored to specific veterinary use cases. These capabilities provide the foundation for generating insights and supporting veterinary decision-making.
+
+### Document-Specific Search
+Input types can vary ranging from PDFs to text. Additionally the type of document itself can vary ranging from Veterinary Medical Records to Veterinary Medical Education to Unspecified VetMed text.
+   
+    - **Dynamic Concepts:** Users can define search terms at runtime, enabling flexible queries (e.g., identifying pre-existing conditions in uploaded documents).
+    - **Predefined Concepts:** Includes ready-to-use definitions for key veterinary terms, such as autoimmune diseases.
+    - **Output Options:** Retrieve results directly or as summarized/generated insights (e.g., treatment plan suggestions).
+
+### Batch Data Search
+    - **Whole Database Search:** Supports comprehensive queries across EMR data for large-scale insights.
+    - **Subset Database Search:** Enables focused searches, such as querying past human-labeled records for condition-specific analysis.
+    - **Customization:** Offers RAG tuning and data-specific optimizations for tailored results.
+
+### Accredited Data Search
+    - **General Queries:** Provides access to a curated VetMed dataset with high reliability and peer-reviewed accuracy.
+    - **Focused Queries:** Allows refined searches, including:
+        - Client communication-ready language.
+        - Differential diagnoses with justifications.
+        - Comprehensive treatment plans linked to diagnoses.
+
+### Search Output Options
+    - **Direct Results:** Raw, unprocessed data retrieval for user customization.
+    - **Summarized Outputs:** Condensed and actionable insights.
+    - **Generated Outputs:** Elaborate, contextual outputs, such as detailed treatment rationales or explanations.
