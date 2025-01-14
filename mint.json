@@ -1,18 +1,18 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Puppilot",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/puppilot-logo-horizontal.png",
+    "light": "/logo/puppilot-logo-horizontal.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#635AF6",
+    "light": "#635AF6",
+    "dark": "#635AF6",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#635AF6",
+      "to": "#6E64FF"
     }
   },
   "topbarLinks": [
@@ -33,16 +33,6 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://mintlify.com/blog"
@@ -52,9 +42,42 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "get-started/introduction",
+        "get-started/conceptual-guide",
+        "get-started/demoing",
+        "get-started/quick-start"
+      ]
+    },
+    {
+      "group": "Vet Med Chat Endpoints",
+      "pages": [
+        "chat-endpoints/vet-med-chat-endpoint",
+        "chat-endpoints/vet-med-chatbot-endpoint",
+        "chat-endpoints/vet-med-live-chatbot-endpoint"
+      ]
+    },
+    {
+      "group": "Vet Med Agents",
+      "pages": [
+        "agents/search-medical-records",
+        "agents/handouts",
+        "agents/differentials",
+        "agents/treatment-plan"
+      ]
+    },
+    {
+      "group": "Vet Med Workflow Automations",
+      "pages": [
+        "workflow/scribing",
+        "workflow/timeline-structuring",
+        "workflow/medical-record-chatbot",
+        "workflow/medical-record-collection"
+      ]
+    },
+    {
+      "group": "Solutions",
+      "pages": [
+        "solutions/insurance"
       ]
     },
     {
