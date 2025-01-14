@@ -42,6 +42,16 @@ If you encounter issues with the global installation (e.g., dependency conflicts
 
 Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
 
+Installation of Github App has already been done for this project. Follow steps below to deploy new changes: 
+1. Once new code is merged to 'main' branch, it should automatically deploy live to the following url: puppilot-5365ecb4.mintlify.app
+2. Sometimes it lags so to manually deploy, log into https://dashboard.mintlify.com/puppilot-5365ecb4
+3. On the Overview page, click the 'manual update' button on the upper right if you don't see your deployment in Activity History. 
+4. Once status of deployment is 'successful' you should see those changes reflected in the live url: puppilot-5365ecb4.mintlify.app
+
+
+
+
+
 #### Troubleshooting
 
 - Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
