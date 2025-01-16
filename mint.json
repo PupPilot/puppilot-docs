@@ -15,6 +15,9 @@
       "to": "#6E64FF"
     }
   },
+  "custom": {
+    "css": "/custom.css"
+  },
   "topbarLinks": [
     {
       "name": "Support",
@@ -114,3 +117,4 @@
     "linkedin": "https://linkedin.com/company/mintlify"
   }
 }
+

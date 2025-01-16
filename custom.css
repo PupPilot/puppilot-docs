@@ -1,0 +1,8 @@
+/* Custom style for inline code ` `*/
+code {
+    background-color: #635AF61A !important; /* Purple background */
+    color: #635AF6 !important; /* White text (optional for contrast) */
+    border-radius: 4px; /* Optional: Rounded corners */
+    padding: 2px 4px; /* Optional: Add some padding */
+    font-family: monospace; /* Maintain monospace font */
+}

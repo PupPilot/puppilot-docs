@@ -3,7 +3,6 @@ title: Scribing
 description: ""
 icon: 'otter'
 ---
-
     
 
 #### Overview
@@ -11,7 +10,7 @@ Automates audio-to-text conversion and structured medical record creation.
 #### Inputs
 Audio File & JSON Config Input: Users submit audio recordings along with configuration settings to customize processing.
 #### Definitions
-Recognizing that every doctor has unique scribing needs, our API offers a variety of specialized endpoints designed to accommodate diverse workflows and requirements. Before diving into specific features, it’s important to define key definitions and concepts related to scribing:
+Recognizing that every doctor has unique scribing needs, our API offers a variety of specialized endpoints designed to accommodate diverse workflows and requirements: <code>Transcription</code>, `Diarized-Transcription`, `Dictation`, `Ambient-Scribing`, `Client-Communications`. Before diving into specific features, it’s important to define key definitions and concepts related to scribing:
 - **Transcription:** The process of converting spoken audio into written text verbatim, capturing exactly what was said. This represents the foundational stage of scribing, providing raw text outputs for further refinement.
 - **Diarized Transcription:** A more advanced form of transcription that identifies and separates different speakers within the audio. This stage adds structure to the transcription, making it useful for multi-speaker interactions like doctor-client conversations.
 - **Dictation:** A focused process where only the doctor’s spoken notes are transcribed, typically to document specific observations or instructions. Dictation moves closer to generating actionable medical content but focuses only on the doctor’s input and generally follows formatting rules expected by the doctor.
@@ -27,3 +26,5 @@ Recognizing that every doctor has unique scribing needs, our API offers a variet
 Re-querying capabilities, allowing users to submit supplementary audio for further refinement.
 #### White-labeling
 Interfaces available for both web and mobile platforms, enabling seamless integration into existing workflows.
+
+
