@@ -4,11 +4,26 @@ description: ""
 icon: 'otter'
 ---
 
+    
+
 #### Overview
 Automates audio-to-text conversion and structured medical record creation.
-#### Features
-- Audio File & JSON Config Input: Users submit audio and configuration settings.
-- Outputs: Transcription, diarized transcription, client communication drafts (e.g., post-visit email), and medical records in desired structured formats.
-- Subsections:
-    - Re-querying (e.g., adding supplementary audio).
-    - White-label interfaces (web/mobile).
+#### Inputs
+Audio File & JSON Config Input: Users submit audio recordings along with configuration settings to customize processing.
+#### Definitions
+Recognizing that every doctor has unique scribing needs, our API offers a variety of specialized endpoints designed to accommodate diverse workflows and requirements. Before diving into specific features, it’s important to define key definitions and concepts related to scribing:
+- **Transcription:** The process of converting spoken audio into written text verbatim, capturing exactly what was said. This represents the foundational stage of scribing, providing raw text outputs for further refinement.
+- **Diarized Transcription:** A more advanced form of transcription that identifies and separates different speakers within the audio. This stage adds structure to the transcription, making it useful for multi-speaker interactions like doctor-client conversations.
+- **Dictation:** A focused process where only the doctor’s spoken notes are transcribed, typically to document specific observations or instructions. Dictation moves closer to generating actionable medical content but focuses only on the doctor’s input and generally follows formatting rules expected by the doctor.
+- **Ambient Scribing:** A comprehensive approach where the system listens to the full appointment and generates a structured medical note based on the entire conversation. Ambient scribing represents the most advanced stage, synthesizing context and content into a complete medical record.
+- **Client Communications:** This can be a section within the medical note, but it is typically referencing the email communication to the client after the completion of the appointment.
+#### Outputs
+- **Transcription** - audio to text.
+- **Diarized Transcription** - identifying differentiate speakers.
+- **Dictation** - audio to text following formatting rules of medical note
+- **Ambient Scribing** - [Primary Product] audio to medical note following json config
+- **Client Communications** -post-visit emails
+#### Subsections
+Re-querying capabilities, allowing users to submit supplementary audio for further refinement.
+#### White-labeling
+Interfaces available for both web and mobile platforms, enabling seamless integration into existing workflows.

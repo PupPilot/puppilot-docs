@@ -62,7 +62,8 @@
         "agents/search-medical-records",
         "agents/handouts",
         "agents/differentials",
-        "agents/treatment-plan"
+        "agents/treatment-plan",
+        "agents/extract-structure"
       ]
     },
     {
@@ -71,7 +72,8 @@
         "workflow/scribing",
         "workflow/timeline-structuring",
         "workflow/medical-record-chatbot",
-        "workflow/medical-record-collection"
+        "workflow/medical-record-collection",
+        "workflow/data-transfer"
       ]
     },
     {
