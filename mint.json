@@ -5,7 +5,7 @@
     "dark": "/logo/puppilot-logo-horizontal.png",
     "light": "/logo/puppilot-logo-horizontal.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/puppilot-logo.svg",
   "colors": {
     "primary": "#635AF6",
     "light": "#635AF6",
@@ -18,15 +18,9 @@
   "custom": {
     "css": "/custom.css"
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Contact Us",
+    "url": "mailto:gp@puppilot.co?cc=iveta@puppilot.co"
   },
   "tabs": [
     {
@@ -38,7 +32,7 @@
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://www.puppilot.co/research"
     }
   ],
   "navigation": [
@@ -85,36 +79,18 @@
         "solutions/insurance"
       ]
     },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
+
     {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
       ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
     }
+
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "instagram": "https://www.instagram.com/puppilot.ai",
+    "linkedin": "https://www.linkedin.com/company/pup-pilot"
   }
 }
 
