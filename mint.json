@@ -76,12 +76,12 @@
     {
       "group": "Solutions",
       "pages": [
-        "solutions/insurance",
         "solutions/pims",
+        "solutions/insurance",
         "solutions/scribing",
         "solutions/clinical",
-        "solutions/software",
-        "solutions/education"
+        "solutions/education",
+        "solutions/software"
       ]
     },
 
