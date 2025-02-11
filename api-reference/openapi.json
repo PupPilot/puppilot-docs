@@ -262,7 +262,8 @@
                     },
                     "categories_output": {
                       "type": "array",
-                      "items": { "type": "object" }
+                      "items": { "type": "object" },
+                      "nullable": true
                     }
                   }
                 },
@@ -273,7 +274,7 @@
                       "transcript_public_id": "<string>",
                       "template_public_id": "<string>",
                       "status": "scribing",
-                      "categories_output": []
+                      "categories_output": null
                     }
                   }
                 }
