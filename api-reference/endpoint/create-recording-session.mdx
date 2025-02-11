@@ -1,0 +1,19 @@
+---
+title: 'Create Recording Session'
+openapi: 'POST /recording-sessions/create'
+---
+
+## Overview
+This endpoint creates a new recording session to be used for scribing. The generated <code>public_id</code> will be required for uploading your audio file in subsequent steps.
+
+## Request Body
+- **`name`** (string) - Name of the patient.
+- **`description`** (string) - Short description of the session.
+
+## Example Request
+```json
+{
+  "name": "Max",
+  "description": "Wellness appointment"
+}
+

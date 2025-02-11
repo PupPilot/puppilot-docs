@@ -1,0 +1,18 @@
+---
+title: 'Request Scribe'
+openapi: 'POST /scribe/request'
+---
+
+## Overview
+Request scribing for a recording session using a specific template. You'll need the <code>public_id</code> from your recording session and the <code>public_id</code> of the chosen template.
+
+## Request Body
+- **`recording_session_public_id`** (string) - The ID of the recording session.
+- **`template_public_id`** (string) - The ID of the template to use.
+
+## Example Request
+```json
+{
+    "recording_session_public_id": "<string>",
+    "template_public_id": "<string>"
+}

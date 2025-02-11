@@ -84,11 +84,16 @@
         "solutions/software"
       ]
     },
-
     {
-      "group": "API Documentation",
+      "group": "Scribing API Endpoints",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/overview",
+        "api-reference/endpoint/authentication",
+        "api-reference/endpoint/create-recording-session",
+        "api-reference/endpoint/get-all-templates",
+        "api-reference/endpoint/upload-audio",
+        "api-reference/endpoint/request-scribe",
+        "api-reference/endpoint/get-scribe"
       ]
     }
 

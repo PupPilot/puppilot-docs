@@ -1,0 +1,11 @@
+---
+title: 'Get Scribe Status'
+openapi: 'GET /scribe/get/{public_id}'
+---
+
+## Overview
+Retrieve the status of a scribing request. When the request is first received it will have status <code>requested</code>. Once scribing is in process it will have status <code>scribing</code>. When scribing is complete it will have status <code>scribed</code>. 
+
+## Path Parameter
+- **`public_id`** (string) - The unique ID of the scribing request.
+

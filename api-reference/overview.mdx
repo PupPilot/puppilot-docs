@@ -1,0 +1,72 @@
+---
+title: 'Overview'
+description: 'Step-by-step guide for using the scribing API'
+---
+
+
+## 🔹 **Workflow Steps**
+
+### 1️⃣ **Log In & Authenticate**
+Before making API requests, you must **log in** to obtain an authentication token.
+
+**Endpoint:**  
+`POST /auth/login` [<small>📖 View Docs</small>](/api-reference/endpoint/authentication)
+
+---
+
+### 2️⃣ **Create a Recording Session**
+Create a new recording session, which will be used for scribing.
+
+**Endpoint:**  
+`POST /recording-sessions/create` [<small>📖 View Docs</small>](/api-reference/endpoint/create-recording-session)
+
+---
+
+### 3️⃣ **Retrieve Available Templates**
+Get a list of all available scribing templates.
+
+**Endpoint:**  
+`GET /templates/all?page=1&limit=50` [<small>📖 View Docs</small>](/api-reference/endpoint/get-all-templates)
+
+---
+
+### 4️⃣ **Generate an Audio Upload URL**
+Before uploading an audio file, you need to generate a **presigned URL**.
+
+**Endpoint:**  
+`POST /audio/generate-upload-url` [<small>📖 View Docs</small>](/api-reference/endpoint/upload-audio)
+
+---
+
+### 5️⃣ **Upload the Audio File**
+Once you have the **presigned URL**, use `curl` or an HTTP client to upload the file.
+
+**Command:**  
+```bash
+curl -X PUT -T "<AUDIO_FILE_PATH>" "<PRE_SIGNED_URL>"
+```
+
+### 6️⃣ **Request Scribing**
+Submit a request to process the uploaded recording using a chosen template.
+
+**Endpoint:**  
+`POST /scribe/request` [<small>📖 View Docs</small>](/api-reference/endpoint/request-scribe)
+
+---
+
+### 7️⃣ **Check Scribing Status**
+Monitor the status of the scribing process.
+
+**Endpoint:**  
+`GET /scribe/get/{public_id}` [<small>📖 View Docs</small>](/api-reference/endpoint/get-scribe)
+
+
+
+
+
+
+
+
+
+
+

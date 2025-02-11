@@ -1,0 +1,32 @@
+---
+title: 'Get All Templates'
+openapi: 'GET /templates/all'
+---
+
+## Overview
+Retrieve a list of all available scribing templates. The <code>public_id</code> of the selected template will be required when submitting a scribing request.
+
+## Query Parameters
+- **`page`** (integer, optional) - Page number (default: 1).
+- **`limit`** (integer, optional) - Number of results per page (default: 50).
+
+## Example Response
+```json
+{
+    "items": [
+        {
+            "public_id": "68ee2ab4-e154-4b84-840d-f41806bbfd63",
+            "name": "HPI",
+            "description": "Basic history and physical template."
+        },
+        {
+            "public_id": "e998125f-43d2-42e4-9446-a9004af13e0b",
+            "name": "Dental Exam",
+            "description": "Dental horse exam, including general oral exam such as jaw, face, etc."
+        }
+    ],
+    "has_next": false,
+    "current_page": 1,
+    "items_per_page": 50
+}
+

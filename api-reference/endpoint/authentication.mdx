@@ -1,0 +1,18 @@
+---
+title: 'User Login'
+openapi: 'POST /auth/login'
+---
+
+## Overview
+Authenticate a user and receive an access token for API requests. Access tokens are valid for 1 hour. Use the refresh_token to obtain a new token when the access token expires.
+
+## Request Body
+- **`email`** (string) - User’s email address.
+- **`password`** (string) - User’s password.
+
+## Example Request
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}

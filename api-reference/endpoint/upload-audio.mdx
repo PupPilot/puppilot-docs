@@ -1,0 +1,28 @@
+---
+title: 'Upload Audio File'
+openapi: 'POST /audio/generate-upload-url'
+---
+
+## Overview
+Generates a **presigned URL** to upload an audio file. The <code>public_id</code> from the previously created recording session is required.
+
+## Request Body
+- **`recording_session_public_id`** (string) - ID of the recording session.
+- **`file_name`** (string) - Name of the audio file.
+
+## Example Request
+```json
+{
+    "recording_session_public_id": "<string>",
+    "file_name": "max.m4a"
+}
+```
+## Uploading the Audio File
+Once you receive the presigned URL, use it to upload your file.
+
+### Upload Command
+Run the following command in your terminal to upload the audio file:
+
+```bash
+curl -X PUT -T "<AUDIO_FILE_PATH>" "<PRE_SIGNED_URL>"
+
