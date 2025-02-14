@@ -8,7 +8,6 @@ Generates a **presigned URL** to upload an audio file. The <code>public_id</code
 
 ## Request Body
 - **`recording_session_public_id`** (string) - ID of the recording session.
-- **`file_name`** (string) - Name of the audio file.
 
 ### Supported Audio Formats
 The following audio file formats are supported:
@@ -18,8 +17,7 @@ The following audio file formats are supported:
 ## Example Request
 ```json
 {
-    "recording_session_public_id": "<string>",
-    "file_name": "max.m4a"
+    "recording_session_public_id": "<string>"
 }
 ```
 ## Uploading the Audio File

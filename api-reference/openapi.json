@@ -154,10 +154,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "recording_session_public_id": { "type": "string" },
-                  "file_name": { "type": "string" }
+                  "recording_session_public_id": { "type": "string" }
                 },
-                "required": ["recording_session_public_id", "file_name"]
+                "required": ["recording_session_public_id"]
               }
             }
           }
