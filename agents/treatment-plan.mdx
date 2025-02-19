@@ -4,8 +4,152 @@ description: ""
 icon: 'rabbit'
 ---
 
-#### Overview
-Develops comprehensive treatment plans tailored to individual patient needs.
-#### Features
-- Includes diagnostic insights, suggested medications, and care routines.
-- Offers customizable templates to align with clinic protocols.
+The Treatment Plan Agent Endpoint provides comprehensive treatment plan recommendations based on a user's input query related to veterinary medicine. It processes the input to assess relevance, retrieves pertinent information, and returns detailed treatment plans to assist veterinarians and other users in managing animal health conditions.
+
+## Request
+
+### Request Body
+The request body should be:
+
+- **input** *(string, required)*: The user's query or description of an animal's diagnosed condition or health issue requiring a treatment plan.
+
+#### Example Request
+```json
+input: "Develop a treatment plan for a dog diagnosed with osteoarthritis."
+```
+
+## Response
+
+### Successful Response (Relevant Input)
+If the input is relevant to veterinary treatment planning, the API will return a JSON object with:
+
+- **status**: `true`
+- **reason**: A structured dictionary containing a detailed treatment plan.
+
+#### reason Object Structure
+The `reason` object contains:
+
+- **Plain English Summary**: A detailed summary of the treatment plan.
+- **Plain English Concise**: A concise overview of the treatment plan.
+- **Treatment Plan Details**: An object containing comprehensive details about the treatment options.
+
+#### Treatment Plan Details Fields
+- **Treatment Options**
+- **Medications**
+- **Dietary Management**
+- **Regular Veterinary Monitoring**
+- **Symptom Management**
+- **Lifestyle Modifications**
+- **Possible Surgical Options**
+- **Owner Education**
+
+#### Example Successful Response
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "The treatment plan for a dog with osteoarthritis includes a combination of medications like NSAIDs for pain relief, dietary changes to support joint health, regular veterinary check-ups to monitor progress, symptom management including physical therapy, lifestyle modifications like controlled exercise, possible surgical interventions if necessary, and educating the owner on disease management.",
+    "Plain English Concise": "Manage osteoarthritis with meds, diet, monitoring, therapy, lifestyle changes, and owner education.",
+    "Treatment Plan Details": {
+      "Treatment Options": "Conservative Management",
+      "Medications": "Non-steroidal anti-inflammatory drugs (NSAIDs) like Carprofen; analgesics like Gabapentin; joint supplements containing glucosamine and chondroitin.",
+      "Dietary Management": "Weight management through a calorie-controlled diet; prescription diets formulated for joint support; supplementation with omega-3 fatty acids.",
+      "Regular Veterinary Monitoring": "Bi-annual exams; blood work to monitor drug effects; assessment of joint mobility and pain levels.",
+      "Symptom Management": "Physical therapy; hydrotherapy; application of heat or cold packs to affected joints.",
+      "Lifestyle Modifications": "Controlled exercise routines; low-impact activities; providing orthopedic bedding; environmental modifications to reduce strain (e.g., ramps instead of stairs).",
+      "Possible Surgical Options": "Joint replacement surgery; arthroscopy for joint cleaning; osteotomy procedures if indicated.",
+      "Owner Education": "Training on administering medications; recognizing signs of pain or progression; importance of adherence to treatment plan; guidance on exercise and activity levels."
+    }
+  }
+}
+```
+
+### Unsuccessful Response (Irrelevant Input)
+If the input is not relevant to veterinary treatment planning, the API will return a JSON object with:
+
+- **status**: `false`
+- **reason**: A string explaining why the input is not relevant.
+
+#### Example Unsuccessful Response
+```json
+{
+  "status": false,
+  "reason": "The input provided does not relate to veterinary treatment planning or lacks sufficient context regarding an animal's medical condition requiring a treatment plan."
+}
+```
+
+## Error Handling
+If an error occurs during processing, the API will return a JSON object with an `error` key:
+```json
+{
+  "error": "<ErrorType>: <ErrorMessage>"
+}
+```
+
+#### Example Error Response
+```json
+{
+  "error": "ValueError: Invalid input format."
+}
+```
+
+## Notes
+
+- Ensure that the input string provides sufficient clinical context, such as the diagnosed condition, species, and any relevant medical history, to generate a meaningful treatment plan.
+- The treatment plans provided are intended to assist veterinary professionals and should be interpreted and applied by qualified individuals.
+- Fields within Treatment Plan Details may vary based on the specific case and available information.
+
+## Additional Example Requests and Responses
+
+### Example 1: Treatment Plan for Feline Diabetes Mellitus
+
+**Request:**
+```json
+{
+  "input": "Create a treatment plan for a cat diagnosed with diabetes mellitus."
+}
+```
+
+**Response:**
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "The treatment plan for a cat with diabetes mellitus includes insulin therapy, dietary management focused on high-protein and low-carbohydrate diets, regular monitoring of blood glucose levels, managing symptoms through weight control, lifestyle adjustments to increase activity levels, and educating the owner on insulin administration and hypoglycemia signs.",
+    "Plain English Concise": "Treat feline diabetes with insulin, diet changes, monitoring, weight control, and owner education.",
+    "Treatment Plan Details": {
+      "Treatment Options": "Medical Management",
+      "Medications": "Insulin injections such as glargine or PZI administered twice daily.",
+      "Dietary Management": "Prescription diets high in protein and low in carbohydrates; scheduled feeding times to coincide with insulin administration.",
+      "Regular Veterinary Monitoring": "Frequent blood glucose curves; fructosamine tests; monitoring for diabetic complications.",
+      "Symptom Management": "Maintaining optimal body weight; addressing any concurrent infections promptly.",
+      "Lifestyle Modifications": "Encouraging moderate exercise; consistent daily routines.",
+      "Possible Surgical Options": "Not typically applicable for diabetes mellitus.",
+      "Owner Education": "Training on proper insulin injection techniques; recognizing signs of hypoglycemia; importance of adherence to treatment schedule; regular veterinary follow-ups."
+    }
+  }
+}
+```
+
+### Example 2: Non-Medical Input
+
+**Request:**
+```json
+{
+  "input": "How do I train my parrot to talk?"
+}
+```
+
+**Response:**
+```json
+{
+  "status": false,
+  "reason": "The input is related to behavioral training and not to veterinary treatment planning."
+}
+```
+
+## Usage Tips
+
+- **Provide Detailed Medical Information**: Include the diagnosed condition, species, and any relevant medical history to receive the most accurate and helpful treatment plan.
+- **Interpreting the Response**: The agent provides treatment recommendations based on the input.
+- **Error Reporting**: If you encounter any issues or unexpected responses, please verify that the input contains sufficient clinical detail before retrying.

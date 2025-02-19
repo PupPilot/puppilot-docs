@@ -282,6 +282,226 @@
           }
         }
       }
+    },
+    "/medication_agent": {
+      "post": {
+        "summary": "Medication Agent",
+        "description": "Handles medication-related tasks.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": { "type": "string", "example": "<String>" }
+                },
+                "required": ["input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Medication details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "boolean", "description": "If `false`, input was not related to medication." },
+                    "reason": {
+                      "type": "object",
+                      "properties": {
+                        "Plain English Summary": { "type": "string" },
+                        "Plain English Concise": { "type": "string" },
+                        "Medication Details": {
+                          "type": "object",
+                          "properties": {
+                            "Drug Name & Classification": { "type": "string" },
+                            "Indications & Uses": { "type": "string" },
+                            "Pharmacology & Mechanism of Action": { "type": "string" },
+                            "Dosing by Species": { "type": "string" },
+                            "Administration & Route": { "type": "string" },
+                            "Contraindications": { "type": "string" },
+                            "Precautions & Warnings": { "type": "string" },
+                            "Adverse Effects": { "type": "string" },
+                            "Drug Interactions": { "type": "string" },
+                            "Monitoring Parameters": { "type": "string" },
+                            "Overdose Information": { "type": "string" },
+                            "Withdrawal Times (for food animals)": { "type": "string" },
+                            "Client Information & Instructions": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co/v1"
+          }
+        ]
+      }
+    },
+    "/ddx_agent": {
+      "post": {
+        "summary": "Differential Diagnosis Agent",
+        "description": "Generates differential diagnoses based on clinical presentation and diagnostic findings.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": { "type": "string", "example": "<String>" }
+                },
+                "required": ["input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Differential diagnosis details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "boolean", "description": "If `false`, input was not related to differential diagnoses." },
+                    "reason": {
+                      "type": "object",
+                      "properties": {
+                        "Plain English Summary": { "type": "string" },
+                        "Plain English Concise": { "type": "string" },
+                        "Differential Diagnosis Details": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "Name": { "type": "string" },
+                              "Cause / Etiology": { "type": "string" },
+                              "Symptoms / Clinical Signs": { "type": "array", "items": { "type": "string" } },
+                              "Risk Factors / Predispositions": { "type": "string" },
+                              "Diagnosis & Rule-Outs": { "type": "object" },
+                              "Commonly Confused With / Differentials to Consider": { "type": "array", "items": { "type": "string" } },
+                              "Prognosis": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
+    },
+    "/treatment_plan_agent": {
+      "post": {
+        "summary": "Treatment Plan Agent",
+        "description": "Generates treatment plan based on clinical presentation and diagnostic findings.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": { "type": "string", "example": "<String>" }
+                },
+                "required": ["input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Treatment plan details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "boolean", "description": "If `false`, input was not related to treatment plans." },
+                    "reason": {
+                      "type": "object",
+                      "properties": {
+                        "Plain English Summary": { "type": "string" },
+                        "Plain English Concise": { "type": "string" },
+                        "Treatment Plan Details": {
+                          "type": "object",
+                          "properties": {
+                            "Treatment Options": { "type": "string" },
+                            "Medications": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Name": { "type": "string" },
+                                  "Role": { "type": "string" },
+                                  "Dosage": { "type": "string" }
+                                }
+                              }
+                            },
+                            "Dietary Management": { "type": "string" },
+                            "Regular Veterinary Monitoring": {
+                              "type": "object",
+                              "properties": {
+                                "Intervals": { "type": "string" },
+                                "Tests": { "type": "array", "items": { "type": "string" } }
+                              }
+                            },
+                            "Symptom Management": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Symptom": { "type": "string" },
+                                  "Management": { "type": "string" }
+                                }
+                              }
+                            },
+                            "Lifestyle Modifications": { "type": "string" },
+                            "Possible Surgical Options": {
+                              "type": "object",
+                              "properties": {
+                                "Option": { "type": "string" },
+                                "Indication": { "type": "string" },
+                                "Risks": { "type": "string" },
+                                "Post-operative Management": { "type": "string" }
+                              }
+                            },
+                            "Owner Education": { "type": "array", "items": { "type": "string" } }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
     }
   },
   "components": {

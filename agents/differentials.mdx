@@ -4,7 +4,171 @@ description: ""
 icon: 'dog'
 ---
 
-#### Decision Support
-Provides diagnostic assistance by listing potential differential diagnoses based on input symptoms.
-#### Customization
-Can be integrated into vet workflows to improve diagnostic accuracy and efficiency.
+
+The Differential Diagnosis Agent Endpoint provides a structured approach to generating differential diagnoses based on a user's input query related to veterinary medicine. It processes the input to assess relevance, retrieves pertinent information, and returns detailed differential diagnosis profiles to assist veterinarians and other users in clinical decision-making.
+
+## Request
+
+### Request Body
+The request body should be:
+- **input** (string, required): The user's query or description of clinical signs and symptoms in an animal.
+
+### Example Request
+```json
+input: "A 5-year-old Labrador Retriever presents with vomiting, diarrhea, and lethargy after getting into the trash."
+```
+
+## Response
+
+### Successful Response (Relevant Input)
+If the input is relevant to veterinary differential diagnosis, the API will return a JSON object with:
+- **status**: `true`
+- **reason**: A structured dictionary containing detailed differential diagnosis information.
+
+#### `reason` Object Structure
+The **reason** object contains:
+- **Plain English Summary**: A detailed summary of the potential diagnoses.
+- **Plain English Concise**: A concise overview of the potential diagnoses.
+- **Differential Diagnosis Details**: An object containing comprehensive details about each differential diagnosis.
+
+#### Differential Diagnosis Details Fields
+- **Name**
+- **Cause / Etiology**
+- **Symptoms / Clinical Signs**
+- **Risk Factors / Predispositions**
+- **Diagnosis & Rule-Outs**
+- **Physical Examination Findings**
+- **Laboratory Tests**
+- **Imaging / Advanced Diagnostics**
+- **Definitive Diagnostic Tests**
+- **Response to Treatment as a Diagnostic Tool**
+- **Commonly Confused With / Differentials to Consider**
+- **Prognosis**
+
+### Example Successful Response
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "The dog may be suffering from gastroenteritis, pancreatitis, dietary indiscretion, or a foreign body obstruction due to ingestion of trash.",
+    "Plain English Concise": "Possible causes include gastroenteritis, pancreatitis, or foreign body ingestion.",
+    "Differential Diagnosis Details": {
+      "Name": "Pancreatitis",
+      "Cause / Etiology": "Inflammation of the pancreas due to ingestion of high-fat foods or dietary indiscretion.",
+      "Symptoms / Clinical Signs": [
+        "Vomiting",
+        "Diarrhea",
+        "Lethargy",
+        "Abdominal pain",
+        "Anorexia"
+      ],
+      "Risk Factors / Predispositions": "Middle-aged dogs, breeds like Labradors, dietary indiscretion.",
+      "Diagnosis & Rule-Outs": {
+        "Physical Examination Findings": "Abdominal pain on palpation, dehydration.",
+        "Laboratory Tests": "Elevated amylase and lipase, increased liver enzymes.",
+        "Imaging / Advanced Diagnostics": "Abdominal ultrasound showing an enlarged, hypoechoic pancreas.",
+        "Definitive Diagnostic Tests": "Pancreatic-specific lipase immunoreactivity (PLI).",
+        "Response to Treatment as a Diagnostic Tool": "Improvement with supportive care and fasting."
+      },
+      "Commonly Confused With / Differentials to Consider": "Gastroenteritis, foreign body obstruction, hepatic disease.",
+      "Prognosis": "Varies from good to guarded depending on severity and response to treatment."
+    }
+  }
+}
+```
+
+### Unsuccessful Response (Irrelevant Input)
+If the input is not relevant to veterinary differential diagnosis, the API will return a JSON object with:
+- **status**: false
+- **reason**: A string explaining why the input is not relevant.
+
+#### Example Unsuccessful Response
+```json
+{
+  "status": false,
+  "reason": "The input provided does not relate to veterinary differential diagnosis or lacks sufficient context regarding an animal, symptoms, or medical concerns."
+}
+```
+
+### Error Handling
+If an error occurs during processing, the API will return a JSON object with an **error** key:
+```json
+{
+  "error": "<ErrorType>: <ErrorMessage>"
+}
+```
+
+#### Example Error Response
+```json
+{
+  "error": "ValueError: Invalid input format."
+}
+```
+
+## Notes
+- Ensure that the input string provides sufficient clinical context for the agent to generate a meaningful differential diagnosis.
+- The differential diagnoses provided are intended to assist veterinary professionals and should be interpreted by qualified individuals.
+- Fields within **Differential Diagnosis Details** may vary based on the specific case and available information.
+
+## Additional Example Requests and Responses
+
+### Example 1: Presenting Clinical Signs in a Cat
+**Request**:
+```json
+{
+  "input": "An 8-year-old indoor cat is showing signs of weight loss, increased appetite, and hyperactivity."
+}
+```
+
+**Response**:
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "The cat may be experiencing hyperthyroidism, diabetes mellitus, or gastrointestinal parasites.",
+    "Plain English Concise": "Possible causes include hyperthyroidism or diabetes.",
+    "Differential Diagnosis Details": {
+      "Name": "Hyperthyroidism",
+      "Cause / Etiology": "Overproduction of thyroid hormones due to thyroid gland adenoma or hyperplasia.",
+      "Symptoms / Clinical Signs": [
+        "Weight loss",
+        "Increased appetite (polyphagia)",
+        "Hyperactivity",
+        "Vomiting",
+        "Increased thirst and urination"
+      ],
+      "Risk Factors / Predispositions": "Middle-aged to older cats.",
+      "Diagnosis & Rule-Outs": {
+        "Physical Examination Findings": "Palpable enlarged thyroid gland, tachycardia.",
+        "Laboratory Tests": "Elevated serum total T4 levels.",
+        "Imaging / Advanced Diagnostics": "Thyroid scintigraphy if needed.",
+        "Definitive Diagnostic Tests": "Serum free T4 by equilibrium dialysis.",
+        "Response to Treatment as a Diagnostic Tool": "Improvement with antithyroid medications."
+      },
+      "Commonly Confused With / Differentials to Consider": "Diabetes mellitus, gastrointestinal diseases.",
+      "Prognosis": "Good with appropriate treatment; options include medication, radioactive iodine therapy, or surgery."
+    }
+  }
+}
+```
+
+### Example 2: Non-Medical Input
+**Request**:
+```json
+{
+  "input": "What are the best training methods for a puppy?"
+}
+```
+
+**Response**:
+```json
+{
+  "status": false,
+  "reason": "The input is related to behavioral training and not to veterinary differential diagnosis."
+}
+```
+
+## Usage Tips
+- **Provide Detailed Clinical Information**: Include species, age, breed, symptoms, and any relevant history to receive the most accurate and helpful differential diagnoses.
+- **Interpreting the Response**: The agent provides possible conditions based on the input.
+- **Error Reporting**: If you encounter any issues or unexpected responses, please verify that the input contains sufficient clinical detail before retrying.

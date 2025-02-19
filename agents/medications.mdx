@@ -1,0 +1,176 @@
+---
+title: Medications
+description: ""
+icon: 'monkey'
+---
+
+The Medication Agent Endpoint provides detailed veterinary medication information based on a user's input query. It processes the input to determine relevance, retrieves relevant data, and returns structured medication profiles to assist veterinarians and other users in accessing comprehensive medication details.
+
+## Request
+
+### Request Body
+
+The request body should be:
+- **input** (*string, required*): The user's query or input text related to a veterinary medication.
+
+**Example Request**
+
+```json
+input: "Tell me about the use of Metronidazole in dogs."
+```
+
+## Response
+
+### Successful Response (Relevant Input)
+
+If the input is relevant to veterinary medication, the API will return a JSON object with:
+- **status:** `true`
+- **reason:** A structured dictionary containing detailed medication information.
+
+#### `reason` Object Structure
+
+The `reason` object contains:
+1. **Plain English Summary:** A detailed summary of the medication.
+2. **Plain English Concise:** A concise summary of the medication.
+3. **Medication Details:** An object containing comprehensive details about the medication.
+
+#### Medication Details Fields
+1. **Drug Name & Classification**
+2. **Indications & Uses**
+3. **Pharmacology & Mechanism of Action**
+4. **Dosing by Species**
+5. **Administration & Route**
+6. **Contraindications**
+7. **Precautions & Warnings**
+8. **Adverse Effects**
+9. **Drug Interactions**
+10. **Monitoring Parameters**
+11. **Overdose Information**
+12. **Withdrawal Times (for food animals)**
+13. **Client Information & Instructions**
+
+**Example Successful Response**
+
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "Metronidazole is an antibiotic and antiprotozoal medication commonly used in dogs to treat a variety of infections, particularly those affecting the gastrointestinal tract.",
+    "Plain English Concise": "Metronidazole treats infections in dogs, especially in the gut.",
+    "Medication Details": {
+      "Drug Name & Classification": "Metronidazole (Flagyl) - Antibiotic and Antiprotozoal",
+      "Indications & Uses": "Treatment of bacterial infections like Giardia, anaerobic infections, and inflammatory bowel disease.",
+      "Pharmacology & Mechanism of Action": "Disrupts DNA synthesis in microorganisms, leading to cell death.",
+      "Dosing by Species": "Dogs: 5-20 mg/kg orally every 12 hours.",
+      "Administration & Route": "Available in tablets and injectable forms; administered orally or intravenously.",
+      "Contraindications": "Hypersensitivity to metronidazole; use with caution in pregnant animals.",
+      "Precautions & Warnings": "Use cautiously in animals with liver dysfunction; may interact with other medications.",
+      "Adverse Effects": "Possible nausea, vomiting, neurologic signs like ataxia or seizures at high doses.",
+      "Drug Interactions": "May interact with anticoagulants and other drugs metabolized by the liver.",
+      "Monitoring Parameters": "Monitor neurological status and liver enzymes during prolonged therapy.",
+      "Overdose Information": "Overdose may cause neurotoxicity; treatment is supportive care.",
+      "Withdrawal Times (for food animals)": "Not recommended for use in food-producing animals.",
+      "Client Information & Instructions": "Administer with food to reduce gastrointestinal upset; complete the full course of therapy."
+    }
+  }
+}
+```
+
+### Unsuccessful Response (Irrelevant Input)
+
+If the input is not relevant to veterinary medication, the API will return a JSON object with:
+- **status:** `false`
+- **reason:** A string explaining why the input is not relevant.
+
+**Example Unsuccessful Response**
+
+```json
+{
+  "status": false,
+  "reason": "The input provided does not relate to veterinary medication or lacks sufficient context regarding an animal, symptoms, or treatment."
+}
+```
+
+## Error Handling
+
+If an error occurs during processing, the API will return a JSON object with an `error` key:
+
+```json
+{
+  "error": "<ErrorType>: <ErrorMessage>"
+}
+```
+
+**Example Error Response**
+
+```json
+{
+  "error": "ValueError: Invalid input format."
+}
+```
+
+## Notes
+
+- Ensure that the input string provides sufficient context for the agent to assess relevance and generate a detailed response.
+- The medication information provided is intended for professional use and should be interpreted by qualified individuals.
+- Fields within Medication Details may vary slightly based on the availability of information for specific medications.
+
+## Additional Example Requests and Responses
+
+**Example 1: Requesting Information on a Specific Medication**
+
+**Request:**
+```json
+{
+  "input": "Can you provide details on the use of Carprofen in veterinary medicine?"
+}
+```
+
+**Response:**
+```json
+{
+  "status": true,
+  "reason": {
+    "Plain English Summary": "Carprofen is a non-steroidal anti-inflammatory drug (NSAID) used to alleviate pain and inflammation in dogs, commonly prescribed for osteoarthritis and post-operative pain management.",
+    "Plain English Concise": "Carprofen reduces pain and inflammation in dogs, especially for arthritis.",
+    "Medication Details": {
+      "Drug Name & Classification": "Carprofen (Rimadyl) - NSAID",
+      "Indications & Uses": "Management of pain and inflammation associated with osteoarthritis and surgery.",
+      "Pharmacology & Mechanism of Action": "Inhibits cyclooxygenase enzymes (COX-2), reducing prostaglandin synthesis.",
+      "Dosing by Species": "Dogs: 2 mg/lb (4.4 mg/kg) once daily or divided twice daily.",
+      "Administration & Route": "Available in caplets, chewable tablets, and injectable forms.",
+      "Contraindications": "Should not be used in dogs with bleeding disorders or hypersensitivity to NSAIDs.",
+      "Precautions & Warnings": "Use cautiously in animals with liver, kidney, or gastrointestinal issues.",
+      "Adverse Effects": "Potential for gastrointestinal ulcers, vomiting, diarrhea, and liver enzyme elevations.",
+      "Drug Interactions": "Avoid concurrent use with other NSAIDs or corticosteroids.",
+      "Monitoring Parameters": "Monitor liver and kidney function during prolonged therapy.",
+      "Overdose Information": "Signs include vomiting, melena, and renal failure; requires immediate veterinary attention.",
+      "Withdrawal Times (for food animals)": "Not approved for use in food-producing animals.",
+      "Client Information & Instructions": "Administer as directed; watch for signs of adverse reactions and report them promptly."
+    }
+  }
+}
+```
+
+**Example 2: Irrelevant Input**
+
+**Request:**
+```json
+{
+  "input": "What's the weather like today?"
+}
+```
+
+**Response:**
+```json
+{
+  "status": false,
+  "reason": "The input is unrelated to veterinary medication and cannot be addressed by the medication agent."
+}
+```
+
+## Usage Tips
+
+1. **Contextual Input:** Provide clear and specific queries related to veterinary medications to receive the most informative responses.
+2. **Comprehensive Information:** The agent strives to offer detailed medication profiles, making it a valuable resource for veterinary professionals.
+3. **Error Reporting:** If you encounter any issues or unexpected responses, please check the input for accuracy and completeness before retrying.

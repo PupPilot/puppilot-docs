@@ -59,6 +59,7 @@
         "agents/search-medical-records",
         "agents/handouts",
         "agents/differentials",
+        "agents/medications",
         "agents/treatment-plan",
         "agents/extract-structure"
       ]
@@ -87,13 +88,21 @@
     {
       "group": "Scribing API Endpoints",
       "pages": [
-        "api-reference/overview",
-        "api-reference/endpoint/authentication",
-        "api-reference/endpoint/create-recording-session",
-        "api-reference/endpoint/get-all-templates",
-        "api-reference/endpoint/upload-audio",
-        "api-reference/endpoint/request-scribe",
-        "api-reference/endpoint/get-scribe"
+        "api-reference/scribing-endpoints/overview",
+        "api-reference/scribing-endpoints/authentication",
+        "api-reference/scribing-endpoints/create-recording-session",
+        "api-reference/scribing-endpoints/get-all-templates",
+        "api-reference/scribing-endpoints/upload-audio",
+        "api-reference/scribing-endpoints/request-scribe",
+        "api-reference/scribing-endpoints/get-scribe"
+      ]
+    },
+    {
+      "group": "Agent Endpoints",
+      "pages": [
+        "api-reference/agent-endpoints/medication",
+        "api-reference/agent-endpoints/differential-diagnosis",
+        "api-reference/agent-endpoints/treatment-plan"
       ]
     }
 
