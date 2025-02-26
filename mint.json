@@ -94,7 +94,8 @@
         "api-reference/scribing-endpoints/get-all-templates",
         "api-reference/scribing-endpoints/upload-audio",
         "api-reference/scribing-endpoints/request-scribe",
-        "api-reference/scribing-endpoints/get-scribe"
+        "api-reference/scribing-endpoints/get-scribe", 
+        "api-reference/scribing-endpoints/webhook-integration-guide"
       ]
     },
     {

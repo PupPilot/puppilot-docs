@@ -154,7 +154,15 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "recording_session_public_id": { "type": "string" }
+                  "recording_session_public_id": {
+                    "type": "string",
+                    "description": "The public ID of the recording session."
+                  },
+                  "auto_scribe_template_public_id": {
+                    "type": "string",
+                    "description": "The public ID of the scribe template to use for automatic transcription. Optional.",
+                    "nullable": true
+                  }
                 },
                 "required": ["recording_session_public_id"]
               }
