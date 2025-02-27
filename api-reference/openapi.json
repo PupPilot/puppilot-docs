@@ -405,13 +405,16 @@
                   }
                 },
                 "example": {
-                  "public_id": "<string>",
-                  "name": "Organization Name",
-                  "description": "Organization Description",
-                  "has_slack_bot_token": true,
-                  "slack_channel": null,
-                  "email_notification": null,
-                  "is_active": true
+                  "message": "Organization's email notification settings updated successfully.",
+                  "data": {
+                    "public_id": "<string>",
+                    "name": "Organization Name",
+                    "description": "Organization Description",
+                    "has_slack_bot_token": true,
+                    "slack_channel": null,
+                    "email_notification": null,
+                    "is_active": false
+                  }
                 }
               }
             }
@@ -713,7 +716,7 @@
         },
         "servers": [
           {
-            "url": "https://agents-api.puppilot.co/v1"
+            "url": "https://agents-api.puppilot.co/"
           }
         ]
       }
