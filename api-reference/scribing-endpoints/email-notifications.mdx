@@ -1,0 +1,17 @@
+---
+title: 'Email Notifications'
+openapi: 'PATCH /organizations/update-email-for-notification'
+---
+
+## Overview
+
+Use this endpoint to specify an email address that will receive notifications in the event of API errors or other important updates related to your organization. Once configured, any future error notifications will automatically be sent to the provided email address.
+
+
+
+### Example Request
+
+```json
+{
+  "email": "<string>"
+}

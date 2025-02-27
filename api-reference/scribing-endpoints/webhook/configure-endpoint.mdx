@@ -1,14 +1,11 @@
 ---
-title: Webhook Integration Guide
-description: ""
-icon: 'arrow-right'
----
+title: 'Configure Endpoint'
 
+---
 
 ## 📢 Overview
 
-This document provides details on how to receive and validate webhook events from our system securely.  
-Webhooks are sent as asynchronous HTTP POST requests containing event-related data.
+To receive webhook events, your server must expose a publicly accessible HTTPS endpoint. This endpoint will handle webhook requests securely and validate them. Webhooks are sent as asynchronous HTTP POST requests containing event-related data.
 
 ## 🔗 Webhook URL Format
 
@@ -18,38 +15,6 @@ Your server should expose a publicly accessible HTTPS endpoint to receive webhoo
 
 ```http
 POST https://your-domain.com/webhook-handler
-```
-
-## 🔔 Registering Your Webhook
-
-Once your webhook is created, you must register it in our API by sending a `PUT` request to:
-
-```http
-PUT /webhook/update
-```
-
-### Example Request:
-
-```json
-{
-  "event_type": "scribe",
-  "webhook_url": "https://your-webhook-url.com/webhook-handler",
-  "auth_token": "your-secret-token"
-}
-```
-
-### Example Response:
-
-```json
-{
-  "message": "Webhook updated successfully",
-  "data": {
-    "public_id": "5e11d9c6-b7e5-4717-9688-ad727f51677f",
-    "event_type": "scribe",
-    "is_active": true,
-    "organization_public_id": "6691d22b-fee0-411c-8df1-ef12769747cb"
-  }
-}
 ```
 
 ## 🔐 Security & Validation
@@ -62,7 +27,7 @@ Each webhook request includes:
 
 ### 1️⃣ Authorization Header
 
-All webhook requests include a Bearer token for authentication. Your server must validate this token.
+All webhook requests include a <code>Bearer</code> token for authentication. Your server **must** validate this token.
 
 **Example Header:**
 
@@ -73,7 +38,7 @@ Authorization: Bearer <YOUR_SECRET_TOKEN>
 #### Validation Steps:
 
 1. Extract the token from the `Authorization` header.
-2. Compare it to the pre-shared secret (provided by us).
+2. Compare it to the **pre-shared secret** (provided by us).
 3. If invalid, reject the request with `HTTP 401 Unauthorized`.
 
 ### 2️⃣ HMAC Signature (`X-Webhook-Signature`)
@@ -95,7 +60,7 @@ X-Webhook-Signature: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b785
 
 ## 📥 Webhook Handling Example (Python)
 
-This is an example implementation of a webhook receiver with validation:
+This is an example implementation of a webhook receiver **with validation**:
 
 ```python
 from fastapi import FastAPI, Request, HTTPException, Header
@@ -181,10 +146,3 @@ Yes. Webhooks are event-driven. You can subscribe to different events.
 
 **What happens if my server is down?**  
 We will retry delivery as per our retry policy above.
-
-## 📌 Summary
-
-✅ **Secure Webhook Integration** → Uses HMAC & Bearer authentication.  
-✅ **Request Validation** → Ensure authenticity & integrity.  
-✅ **Retries on Failure** → Exponential backoff for delivery reliability.  
-✅ **Example Implementation** → FastAPI-based webhook handler.  

@@ -269,8 +269,11 @@
                     },
                     "categories_output": {
                       "type": "array",
-                      "items": { "type": "object" },
-                      "nullable": true
+                      "items": { "type": "object" }
+                    }, 
+                    "rtf_output": {
+                      "type": "string"
+                    
                     }
                   }
                 },
@@ -280,9 +283,368 @@
                       "public_id": "<string>",
                       "transcript_public_id": "<string>",
                       "template_public_id": "<string>",
-                      "status": "scribing",
-                      "categories_output": null
+                      "status": "scribed",
+                      "categories_output": [],
+                      "rtf_output": "{\\rtf1\\ansi\\deff0 ... }"
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/get": {
+      "get": {
+        "summary": "Get Organization Details",
+        "description": "Retrieves details about the authenticated user's organization.",
+        "operationId": "getOrganization",
+        "tags": ["Organization"],
+        "requestBody": {
+          "description": "This endpoint does not require a request body.",
+          "content": {},
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Organization details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "public_id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "has_slack_bot_token": { "type": "boolean" },
+                    "slack_channel": { "type": "string" },
+                    "email_notification": { "type": "string"}
+                  }
+                },
+                
+                "example": {
+                  "public_id": "<string>",
+                  "name": "Organization Name",
+                  "description": "Organization Description",
+                  "has_slack_bot_token": true,
+                  "slack_channel": null,
+                  "email_notification": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/update-email-for-notification": {
+      "patch": {
+        "summary": "Email Notifications",
+        "description": "Updates the organization's email notification settings.",
+        "operationId": "updateEmailNotification",
+        "tags": ["Organization"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "The email address to be used for notifications."
+                  }
+                },
+                "required": ["email"]
+              },
+              "example": {
+                "email": "<string>"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization's email notification settings updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Organization's email notification settings updated successfully."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "public_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "has_slack_bot_token": {
+                          "type": "boolean"
+                        },
+                        "slack_channel": {
+                          "type": "string"
+                        },
+                        "email_notification": {
+                          "type": "string"
+                        },
+                        "is_active": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "public_id": "<string>",
+                  "name": "Organization Name",
+                  "description": "Organization Description",
+                  "has_slack_bot_token": true,
+                  "slack_channel": null,
+                  "email_notification": null,
+                  "is_active": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhook/update": {
+      "put": {
+        "summary": "Register a Webhook",
+        "description": "Registers a webhook for a specific event type.",
+        "operationId": "updateWebhook",
+        "tags": ["Webhook"],
+        "requestBody": {
+          "description": "Webhook details that need to be registered.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event_type": {
+                    "type": "string",
+                    "example": "scribe",
+                    "description": "The type of event this webhook is listening for."
+                  },
+                  "webhook_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://your-webhook-url.com/webhook-handler",
+                    "description": "The endpoint where webhook notifications will be sent."
+                  },
+                  "auth_token": {
+                    "type": "string",
+                    "example": "your-secret-token",
+                    "description": "A secret token used to authenticate webhook requests."
+                  }
+                },
+                "required": ["event_type", "webhook_url", "auth_token"]
+              },
+              "example": {
+                "event_type": "scribe",
+                "webhook_url": "https://your-webhook-url.com/webhook-handler",
+                "auth_token": "your-secret-token"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook received and validated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Webhook updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "public_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "5e11d9c6-b7e5-4717-9688-ad727f51677f"
+                        },
+                        "event_type": {
+                          "type": "string",
+                          "example": "scribe"
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "organization_public_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "6691d22b-fee0-411c-8df1-ef12769747cb"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Webhook updated successfully",
+                  "data": {
+                    "public_id": "5e11d9c6-b7e5-4717-9688-ad727f51677f",
+                    "event_type": "scribe",
+                    "is_active": true,
+                    "organization_public_id": "6691d22b-fee0-411c-8df1-ef12769747cb"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields (e.g., signature, authorization).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Missing required fields: signature, authorization."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing Authorization header.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid or missing Authorization header."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Signature mismatch or invalid auth token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Signature mismatch or invalid auth token."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhook/status": {
+      "patch": {
+        "summary": "Change Webhook Status",
+        "description": "Enables or disables a registered webhook for a specific event type.",
+        "operationId": "changeWebhookStatus",
+        "tags": ["Webhook"],
+        "requestBody": {
+          "description": "Payload to update the webhook status.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event_type": {
+                    "type": "string",
+                    "example": "scribe",
+                    "description": "The type of event associated with the webhook."
+                  },
+                  "is_active": {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "Determines whether the webhook is active (`true`) or inactive (`false`)."
+                  },
+                  "organization_public_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "<string>",
+                    "description": "The unique identifier for the organization that owns the webhook."
+                  }
+                },
+                "required": ["event_type", "is_active", "organization_public_id"]
+              },
+              "example": {
+                "event_type": "scribe",
+                "is_active": false,
+                "organization_public_id": "<string>"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook's is_active status updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Webhook's is_active status updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "public_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "<string>"
+                        },
+                        "event_type": {
+                          "type": "string",
+                          "example": "scribe"
+                        },
+                        "is_active": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "organization_public_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "<string>"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Webhook's is_active status updated successfully",
+                  "data": {
+                    "public_id": "<string>",
+                    "event_type": "scribe",
+                    "is_active": false,
+                    "organization_public_id": "<string>"
                   }
                 }
               }

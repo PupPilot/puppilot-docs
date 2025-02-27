@@ -4,7 +4,7 @@ openapi: 'POST /audio/generate-upload-url'
 ---
 
 ## Overview
-Generates a **presigned URL** to upload an audio file. The <code>public_id</code> from the previously created recording session is required. Optionally, users can provide <code>auto_scribe_template_public_id</code> to automatically start scribing upon upload completion. Users can set up webhooks to receive notifications when the scribing process is complete. [<small>View Webhook Docs</small>](/api-reference/scribing-endpoints/webhook-integration-guide)
+Generates a **presigned URL** to upload an audio file. The <code>public_id</code> from the previously created recording session is required. Optionally, users can provide <code>auto_scribe_template_public_id</code> to automatically start scribing upon upload completion. Users can set up webhooks to receive notifications when the scribing process is complete. [<small>View Webhook Docs</small>](/api-reference/scribing-endpoints/webhook/configure-endpoint)
 
 ## Request Body
 - **`recording_session_public_id`** (string) - The public ID of the recording session. 

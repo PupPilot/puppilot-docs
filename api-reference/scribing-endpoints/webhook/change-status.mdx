@@ -1,0 +1,25 @@
+---
+title: 'Change Status'
+openapi: 'PATCH /webhook/status'
+---
+
+### Overview 
+
+The `PATCH /webhook/status` endpoint allows you to **activate or deactivate** a registered webhook for a specific event type.  
+
+**Key Steps:**
+1. Send a `PATCH` request to `/webhook/status` with the `event_type`, `is_active` status, and `organization_public_id`.  
+2. If successful, the webhook will be updated, and notifications will either be **enabled or disabled** accordingly.  
+
+---
+
+## 📤 Example Request
+
+To **disable** a webhook for the `"scribe"` event type, send the following request:
+
+```json
+{
+  "event_type": "scribe",
+  "is_active": false,
+  "organization_public_id": "<string>"
+}

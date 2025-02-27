@@ -1,0 +1,18 @@
+---
+title: 'Register URL'
+openapi: 'PUT /webhook/update'
+---
+## Overview 
+To receive webhook events from our system, you must first register your webhook URL. This ensures that our platform knows where to send event notifications for the specified event type.
+
+### Example Request
+
+```json
+{
+  "event_type": "scribe",
+  "webhook_url": "https://your-webhook-url.com/webhook-handler",
+  "auth_token": "your-secret-token"
+}
+```
+
+The `"scribe"` event type triggers a notification to your webhook when a scribing process is complete, allowing your system to take action once the transcription is finalized.

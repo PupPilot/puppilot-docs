@@ -89,13 +89,52 @@
       "group": "Scribing API Endpoints",
       "pages": [
         "api-reference/scribing-endpoints/overview",
-        "api-reference/scribing-endpoints/authentication",
-        "api-reference/scribing-endpoints/create-recording-session",
-        "api-reference/scribing-endpoints/get-all-templates",
-        "api-reference/scribing-endpoints/upload-audio",
-        "api-reference/scribing-endpoints/request-scribe",
-        "api-reference/scribing-endpoints/get-scribe", 
-        "api-reference/scribing-endpoints/webhook-integration-guide"
+        {
+          "group": "Auth",
+          "pages": [
+            "api-reference/scribing-endpoints/authentication"
+          ]
+        },
+        {
+          "group": "Scribe",
+          "pages": [
+            "api-reference/scribing-endpoints/request-scribe",
+            "api-reference/scribing-endpoints/get-scribe"
+          ]
+        },
+        {
+          "group": "RecordingSessions",
+          "pages": [
+            "api-reference/scribing-endpoints/create-recording-session"
+          ]
+        },
+        {
+          "group": "Template",
+          "pages": [
+            "api-reference/scribing-endpoints/get-all-templates"
+          ]
+        },
+        {
+          "group": "Audio",
+          "pages": [
+            "api-reference/scribing-endpoints/upload-audio"
+          ]
+        },
+        {
+          "group": "Organization",
+          "pages": [
+            "api-reference/scribing-endpoints/get-organization",
+            "api-reference/scribing-endpoints/email-notifications"
+          ]
+        },
+        {
+          "group": "Webhook",
+          "pages": [
+            "api-reference/scribing-endpoints/webhook/configure-endpoint",
+            "api-reference/scribing-endpoints/webhook/register-url", 
+            "api-reference/scribing-endpoints/webhook/change-status"
+          ]
+        }
       ]
     },
     {
