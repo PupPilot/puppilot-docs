@@ -20,3 +20,91 @@ Our generation services focus on leveraging advanced LLMs with accredited VetMed
 - Enhanced conversational AI with RAG-driven contextual understanding.
 - Dynamic integration of curated VetMed data for precision.
 - Streamlined outputs for single-turn interactions tailored to veterinary workflows.
+
+## Request
+
+### Request Body
+The request body should be:
+- **input** (string, required): The user's query.
+- **model** (string, optional, default=`gpt-4o`): The LLM to query against. It can be one of the following:
+```
+gpt-4o
+gpt-4o-mini
+o1
+o1-mini
+o3-mini
+Llama-3.3
+Llama-3.2
+Mixtral
+Qwen
+DeepSeek-V3
+DeepSeek-R1
+```
+
+In the absense of a `model` parameter, it will default to `gpt-4o`.
+
+### Example Request
+```json
+{
+  "input": "How to get a toy unstuck from a dog's throat?",
+  "model": "DeepSeek-R1"
+}
+```
+
+## Response
+
+### Successful Response (Relevant Input)
+If the input is relevant to veterinary medicine, the API will return a JSON object with:
+- **status**: `true`
+- **reason**: A structured dictionary containing the answer to the query.
+
+#### `reason` Object Structure
+The **reason** object contains:
+- **Plain English Summary**: A detailed summary of the response.
+- **Plain English Concise**: A concise overview of the response.
+
+### Example Successful Response
+```json
+{
+  "status": true,
+  "result": {
+    "reason": {
+      "Plain English Concise": "A dog with a toy stuck in its throat needs immediate vet care. Endoscopic removal is preferred to avoid complications. Do not attempt home remedies like inducing vomiting. Delays can lead to severe esophageal damage.",
+      "Plain English Summary": "If a dog has a toy stuck in its throat, immediate veterinary intervention is crucial to prevent serious complications. Esophageal foreign bodies should be removed promptly by a professional, ideally using endoscopy, which is the preferred method due to its high success rate and ability to visualize the esophagus. Delaying removal can lead to severe issues like esophageal perforation, esophagitis, or strictures. Home remedies such as inducing vomiting with hydrogen peroxide are not recommended, as they can worsen the situation. If endoscopy is not successful, surgical intervention may be necessary. After removal, the dog should be monitored for any esophageal damage, and medications like proton pump inhibitors and sucralfate may be prescribed to aid recovery."
+    }
+  }
+}
+```
+
+### Unsuccessful Response (Irrelevant Input)
+If the input is not relevant to veterinary medicine, the API will return a JSON object with:
+- **status**: false
+- **reason**: A string explaining why the input is not relevant.
+
+#### Example Unsuccessful Response
+```json
+{
+  "status": false,
+  "reason": "The query was not found to be relevant to the topic."
+}
+```
+
+### Error Handling
+If an error occurs during processing, the API will return a JSON object with an **error** key:
+```json
+{
+  "error": "<ErrorType>: <ErrorMessage>"
+}
+```
+
+#### Example Error Response
+```json
+{
+  "error": "ValueError: The query was not found to be relevant to the topic."
+}
+```
+
+## Additional Example Requests and Responses
+
+### Example 1: TODO
+
