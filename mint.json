@@ -92,39 +92,53 @@
         {
           "group": "Auth",
           "pages": [
-            "api-reference/scribing-endpoints/authentication"
+            "api-reference/scribing-endpoints/auth/authentication",
+            "api-reference/scribing-endpoints/auth/refresh-token",
+            "api-reference/scribing-endpoints/auth/reset-password-request",
+            "api-reference/scribing-endpoints/auth/reset-password"
+
+          ]
+        },
+        {
+          "group": "User",
+          "pages": [
+            "api-reference/scribing-endpoints/user/user",
+            "api-reference/scribing-endpoints/user/change-password"
           ]
         },
         {
           "group": "Scribe",
           "pages": [
-            "api-reference/scribing-endpoints/request-scribe",
-            "api-reference/scribing-endpoints/get-scribe"
+            "api-reference/scribing-endpoints/scribe/request-scribe",
+            "api-reference/scribing-endpoints/scribe/get-scribe",
+            "api-reference/scribing-endpoints/scribe/get-all-scribes"
           ]
         },
         {
           "group": "RecordingSessions",
           "pages": [
-            "api-reference/scribing-endpoints/create-recording-session"
+            "api-reference/scribing-endpoints/recording-sessions/create-recording-session",
+            "api-reference/scribing-endpoints/recording-sessions/get-recording-session",
+            "api-reference/scribing-endpoints/recording-sessions/get-all-recording-sessions"
           ]
         },
         {
           "group": "Template",
           "pages": [
-            "api-reference/scribing-endpoints/get-all-templates"
+            "api-reference/scribing-endpoints/template/get-all-templates"
           ]
         },
         {
           "group": "Audio",
           "pages": [
-            "api-reference/scribing-endpoints/upload-audio"
+            "api-reference/scribing-endpoints/audio/upload-audio"
           ]
         },
         {
           "group": "Organization",
           "pages": [
-            "api-reference/scribing-endpoints/get-organization",
-            "api-reference/scribing-endpoints/email-notifications"
+            "api-reference/scribing-endpoints/organization/get-organization",
+            "api-reference/scribing-endpoints/organization/email-notifications"
           ]
         },
         {

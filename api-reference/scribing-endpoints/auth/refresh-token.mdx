@@ -1,0 +1,14 @@
+---
+title: 'Refresh Token'
+openapi: 'POST /auth/refresh-token'
+---
+
+
+## Request Body
+- **`token`** (string) - The refresh token issued during the initial authentication process. Used to obtain a new access token without requiring the user to sign in again.
+
+## Example Request
+```json
+{
+  "token": "a_refresh_token",
+}

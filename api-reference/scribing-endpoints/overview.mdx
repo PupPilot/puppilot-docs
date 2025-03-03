@@ -10,7 +10,7 @@ description: 'Step-by-step guide for using the scribing API'
 Before making API requests, you must **log in** to obtain an authentication token.
 
 **Endpoint:**  
-`POST /auth/login` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/authentication)
+`POST /auth/login` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/auth/authentication)
 
 ---
 
@@ -18,7 +18,7 @@ Before making API requests, you must **log in** to obtain an authentication toke
 Create a new recording session, which will be used for scribing.
 
 **Endpoint:**  
-`POST /recording-sessions/create` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/create-recording-session)
+`POST /recording-sessions/create` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/recording-sessions/create-recording-session)
 
 ---
 
@@ -26,7 +26,7 @@ Create a new recording session, which will be used for scribing.
 Get a list of all available scribing templates.
 
 **Endpoint:**  
-`GET /templates/all?page=1&limit=50` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/get-all-templates)
+`GET /templates/all?page=1&limit=50` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/template/get-all-templates)
 
 ---
 
@@ -34,7 +34,7 @@ Get a list of all available scribing templates.
 Before uploading an audio file, you need to generate a **presigned URL**.
 
 **Endpoint:**  
-`POST /audio/generate-upload-url` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/upload-audio)
+`POST /audio/generate-upload-url` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/audio/upload-audio)
 
 ---
 
@@ -50,7 +50,7 @@ curl -X PUT -T "<AUDIO_FILE_PATH>" "<PRE_SIGNED_URL>"
 Submit a request to process the uploaded recording using a chosen template.
 
 **Endpoint:**  
-`POST /scribe/request` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/request-scribe)
+`POST /scribe/request` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/scribe/request-scribe)
 
 ---
 
@@ -58,7 +58,7 @@ Submit a request to process the uploaded recording using a chosen template.
 Monitor the status of the scribing process.
 
 **Endpoint:**  
-`GET /scribe/get/{public_id}` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/get-scribe)
+`GET /scribe/get/{public_id}` [<small>📖 View Docs</small>](/api-reference/scribing-endpoints/scribe/get-scribe)
 
 
 

@@ -57,6 +57,179 @@
         }
       }
     },
+    "/auth/refresh-token": {
+      "post": {
+        "summary": "Refresh Token",
+        "description": "Exchange a valid refresh token for a new access token to maintain an active session without requiring the user to re-authenticate.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string"}
+                },
+                "required": ["token"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": { "type": "string" },
+                    "refresh_token": { "type": "string" },
+                    "token_type": { "type": "string", "example": "bearer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "Reset Password",
+        "description": "Reset user password with token that was emailed.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string", "format": "email" },
+                  "new_password": {"type": "string"} 
+                },
+                "required": ["token", "new_password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Password has been reset successfully." }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-password-reset": {
+      "post": {
+        "summary": "Request Reset Password",
+        "description": "Request a token to reset user password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "format": "email" }
+                },
+                "required": ["email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Password reset token sent to the provided email." }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Get Users Details",
+        "description": "Retrieves details about the authenticated user.",
+        "requestBody": {
+          "description": "This endpoint does not require a request body.",
+          "content": {},
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "public_id": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "name": { "type": "string" },
+                    "organization_public_id": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/change-password": {
+      "patch": {
+        "summary": "Change password",
+        "description": "Change a user's password to a new one.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": { "type": "string" },
+                  "new_password": { "type": "string" }
+                },
+                "required": ["old_password", "new_password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Password changed successfully" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/recording-sessions/create": {
       "post": {
         "summary": "Create a Recording Session",
@@ -85,8 +258,93 @@
                   "type": "object",
                   "properties": {
                     "public_id": { "type": "string" },
+                    "updated_at": { "type": "string" },
                     "name": { "type": "string" },
-                    "description": { "type": "string" }
+                    "description": { "type": "string" },
+                    "organization_public_id": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recording-sessions/get/{public_id}": {
+      "get": {
+        "summary": "Get recording session",
+        "description": "Retrieve information for a recording session",
+        "parameters": [
+          {
+            "name": "public_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recording session retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "public_id": { "type": "string" },
+                    "updated_at": { "type": "string" },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "organization_public_id": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recording-sessions/all": {
+      "get": {
+        "summary": "Get All Recording Sessions",
+        "description": "Retrieve all created recording sessions.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 50 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of recording sessions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "public_id": { "type": "string" },
+                          "updated_at": { "type": "string" },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "organization_public_id": { "type": "string" }
+                        }
+                      }
+                    },
+                    "has_next": { "type": "boolean" },
+                    "current_page": { "type": "integer" },
+                    "items_per_page": { "type": "integer" }
                   }
                 }
               }
@@ -287,6 +545,57 @@
                       "categories_output": [],
                       "rtf_output": "{\\rtf1\\ansi\\deff0 ... }"
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scribe/all": {
+      "get": {
+        "summary": "Get All Scribes",
+        "description": "Retrieve all available scribe requests",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 50 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of scribe requests.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "public_id": { "type": "string" },
+                          "updated_at": { "type": "string" },
+                          "transcript_public_id": { "type": "string" },
+                          "template_public_id": { "type": "string" },
+                          "organization_public_id": { "type": "string" },
+                          "status": { "type": "string", "example": "scribed" }
+                        }
+                      }
+                    },
+                    "has_next": { "type": "boolean" },
+                    "current_page": { "type": "integer" },
+                    "items_per_page": { "type": "integer" }
                   }
                 }
               }
