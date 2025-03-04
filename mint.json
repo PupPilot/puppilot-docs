@@ -16,7 +16,12 @@
     }
   },
   "custom": {
-    "css": "/custom.css"
+    "css": "/custom.css",
+    "api": {
+      "playground": {
+        "disableProxy": true
+      }
+    }
   },
   "topbarCtaButton": {
     "name": "Contact Us",
