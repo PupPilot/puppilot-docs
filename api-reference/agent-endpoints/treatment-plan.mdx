@@ -1,11 +1,43 @@
 ---
 title: 'Treatment Plan'
-openapi: 'POST /treatment_plan_agent'
+openapi: 'POST /treatment_plan_agent_v2'
 ---
 
 ## Request Example
+
+**Note:** The species (e.g., dog, cat, etc.) must be included in the input.
+
 ```json
 {
-  "input": "<String>"
+  "input": "Whats the treatment plan for atopic dermatitis in a dog"
+}
+```
+
+# Example Response
+
+```json
+{
+    "reason": "The inquiry is relevant to veterinary medicine as it pertains to the treatment plan for atopic dermatitis, a common skin condition in dogs. This implies the need for a veterinary treatment plan to manage the condition.",
+    "response": {
+        "Plain English Concise": "Management of canine atopic dermatitis includes antihistamines, hypoallergenic diet, regular baths, and allergen avoidance, with follow-up every 4-6 weeks; consider immunotherapy if specific allergens are identified.",
+        "Plain English Summary": "The Atopic Dermatitis Management Plan for this canine patient focuses on reducing pruritus and inflammation while improving skin barrier function and preventing flare-ups. Medications such as Diphenhydramine and Cetirizine may be prescribed for mild cases, although efficacy can vary. Dietary management includes introducing a hypoallergenic or novel protein diet and omega fatty acid supplements if food allergies are suspected. Regular veterinary monitoring is crucial, with follow-ups every 4-6 weeks to assess treatment efficacy and make necessary adjustments. Lifestyle modifications, such as minimizing allergen exposure and regular bathing with hypoallergenic shampoos, are recommended, and allergen-specific immunotherapy may be considered if specific allergens are identified. Owner education is essential for recognizing early flare-up signs and maintaining a symptom diary to guide ongoing management.",
+        "Treatment Plan Details": {
+            "Atopic Dermatitis": {
+                "diagnosis_name": "Atopic Dermatitis",
+                "dietary_management": "Implement a hypoallergenic or novel protein diet if food allergies are suspected or confirmed. Introduce omega-3 and omega-6 fatty acid supplements at 40 mg/kg and 10 mg/kg respectively to improve skin barrier function and reduce inflammation.",
+                "lifestyle_modifications": "Minimize exposure to known allergens by using air purifiers, washing bedding frequently, and avoiding walks in high pollen areas during peak seasons. Consider using topical treatments like sphingolipids to enhance skin barrier function.",
+                "medications": "Antihistamines such as Diphenhydramine (1-2 mg/kg every 8-12 hours) and Cetirizine (1 mg/kg once daily) can be used for mild cases, though efficacy may vary. Corticosteroids like Prednisone should be administered at 0.5-1 mg/kg daily for 5-7 days, then tapered to the lowest effective dose. Immunomodulatory medications such as Cyclosporine (Atopica) at 5 mg/kg daily and Oclacitinib (Apoquel) at 0.4-0.6 mg/kg twice daily for 14 days, then once daily, are effective for long-term management. Biologic therapy with Lokivetmab (Cytopoint) is administered at 1-3 mg/kg subcutaneously every 4-8 weeks as needed for pruritus control.",
+                "non-surgical_options": "Consider allergen-specific immunotherapy (ASIT) if specific allergens are identified and the patient is a good candidate. This involves subcutaneous injections or sublingual administration of allergen extracts over several months to years.",
+                "owner_education": "Educate owners on the importance of adhering to the treatment plan, recognizing early signs of flare-ups, and maintaining a diary of symptoms and potential triggers. Discuss potential side effects of medications and the importance of regular monitoring.",
+                "possible_surgical_options": "Not applicable",
+                "preventative_options": "Implement environmental control measures and dietary management to prevent flare-ups. Consider alternative therapies like acupuncture or herbal supplements as adjunctive treatments. Regularly review and adjust the treatment plan based on the dog's response.",
+                "regular_veterinary_monitoring": "Schedule follow-up appointments every 4-6 weeks initially to monitor response to treatment and adjust the plan as necessary. Educate the owner on recognizing early signs of flare-ups and monitor liver enzymes if using long-term corticosteroids.",
+                "symptom_management": "Regular bathing with hypoallergenic or medicated shampoos, such as those containing chlorhexidine or phytosphingosine, to remove allergens and provide soothing relief. Use of antihistamines and corticosteroids for immediate relief as needed.",
+                "treatment_goal": "To reduce pruritus and inflammation, improve skin barrier function, and prevent flare-ups in atopic dermatitis.",
+                "treatment_plan_name": "Atopic Dermatitis Management Plan"
+            }
+        }
+    },
+    "status": true
 }
 ```

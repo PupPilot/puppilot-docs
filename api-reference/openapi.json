@@ -965,7 +965,7 @@
         }
       }
     },
-    "/medication_agent": {
+    "/medication_agent_v2": {
       "post": {
         "summary": "Medication Agent",
         "description": "Handles medication-related tasks.",
@@ -992,28 +992,30 @@
                   "type": "object",
                   "properties": {
                     "status": { "type": "boolean", "description": "If `false`, input was not related to medication." },
-                    "reason": {
+                    "reason": { "type": "string", "description": "A brief explanation of why the input is relevant to veterinary medicine." },
+                    "response": {
                       "type": "object",
                       "properties": {
-                        "Plain English Summary": { "type": "string" },
-                        "Plain English Concise": { "type": "string" },
+                        "Plain English Concise": { "type": "string", "description": "A concise summary of the medication details." },
+                        "Plain English Summary": { "type": "string", "description": "A detailed summary of the medication in plain English." },
                         "Medication Details": {
                           "type": "object",
-                          "properties": {
-                            "Drug Name & Classification": { "type": "string" },
-                            "Indications & Uses": { "type": "string" },
-                            "Pharmacology & Mechanism of Action": { "type": "string" },
-                            "Dosing by Species": { "type": "string" },
-                            "Administration & Route": { "type": "string" },
-                            "Contraindications": { "type": "string" },
-                            "Precautions & Warnings": { "type": "string" },
-                            "Adverse Effects": { "type": "string" },
-                            "Drug Interactions": { "type": "string" },
-                            "Monitoring Parameters": { "type": "string" },
-                            "Overdose Information": { "type": "string" },
-                            "Withdrawal Times (for food animals)": { "type": "string" },
-                            "Client Information & Instructions": { "type": "string" }
-                          }
+                            "properties": {
+                              "drug_name_and_classification": { "type": "string", "description": "The name of the drug and its classification." },
+                              "indications_and_uses": { "type": "string", "description": "Medical conditions or treatments for which the drug is used." },
+                              "pharmacology_and_mechanism_of_action": { "type": "string", "description": "How the drug works in the body." },
+                              "dosing_by_species": { "type": "string", "description": "Recommended dosage and variations by species." },
+                              "administration_and_route": { "type": "string", "description": "How the drug is administered (oral, injectable, topical, etc.)." },
+                              "contraindications": { "type": "string", "description": "Medical conditions or factors that prevent the use of this drug." },
+                              "precautions_and_warnings": { "type": "string", "description": "Important safety information, including risks in special populations." },
+                              "adverse_effects": { "type": "string", "description": "Possible side effects or reactions to the medication." },
+                              "drug_interactions": { "type": "string", "description": "Potential interactions with other medications or substances." },
+                              "monitoring_parameters": { "type": "string", "description": "Recommended monitoring tests and safety checks." },
+                              "overdose_information": { "type": "string", "description": "Signs of overdose and recommended treatment." },
+                              "withdrawal_times": { "type": "string", "description": "Withdrawal period for food-producing animals, if applicable." },
+                              "client_information": { "type": "string", "description": "Guidance for pet owners on safe use and handling of the medication." },
+                              "notes": { "type": "string", "description": "Additional relevant information about the medication." }
+                            }
                         }
                       }
                     }
@@ -1030,7 +1032,7 @@
         ]
       }
     },
-    "/ddx_agent": {
+    "/ddx_agent_v2": {
       "post": {
         "summary": "Differential Diagnosis Agent",
         "description": "Generates differential diagnoses based on clinical presentation and diagnostic findings.",
@@ -1056,27 +1058,25 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "boolean", "description": "If `false`, input was not related to differential diagnoses." },
-                    "reason": {
+                    "status": { "type": "boolean", "description": "Indicates whether the input was related to differential diagnoses." },
+                    "reason": { "type": "string", "description": "A brief explanation of why the input is relevant to veterinary medicine." },
+                    "response": {
                       "type": "object",
                       "properties": {
-                        "Plain English Summary": { "type": "string" },
-                        "Plain English Concise": { "type": "string" },
                         "Differential Diagnosis Details": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
+                          "type": "object",
                             "properties": {
-                              "Name": { "type": "string" },
-                              "Cause / Etiology": { "type": "string" },
-                              "Symptoms / Clinical Signs": { "type": "array", "items": { "type": "string" } },
-                              "Risk Factors / Predispositions": { "type": "string" },
-                              "Diagnosis & Rule-Outs": { "type": "object" },
-                              "Commonly Confused With / Differentials to Consider": { "type": "array", "items": { "type": "string" } },
-                              "Prognosis": { "type": "string" }
+                              "name": { "type": "string", "description": "The name of the differential diagnosis." },
+                              "cause_etiology": { "type": "string", "description": "Description of the cause or etiology of the condition." },
+                              "commonly_confused_with": { "type": "string", "description": "Other conditions that may present with similar symptoms." },
+                              "diagnosis_rule_outs": { "type": "string", "description": "Diagnostic tests and rule-out methods to confirm or eliminate this diagnosis." },
+                              "prognosis": { "type": "string", "description": "The prognosis or expected outcome for the condition." },
+                              "risk_factors_predispositions": { "type": "string", "description": "Risk factors or predisposing conditions associated with this diagnosis." },
+                              "symptoms_clinical_signs": { "type": "string", "description": "The symptoms and clinical signs commonly associated with this condition." }
                             }
-                          }
-                        }
+                        },
+                        "Plain English Concise": { "type": "string", "description": "A concise summary of the differential diagnosis findings." },
+                        "Plain English Summary": { "type": "string", "description": "A detailed summary of the differential diagnosis in plain English." }
                       }
                     }
                   }
@@ -1092,7 +1092,7 @@
         ]
       }
     },
-    "/treatment_plan_agent": {
+    "/treatment_plan_agent_v2": {
       "post": {
         "summary": "Treatment Plan Agent",
         "description": "Generates treatment plan based on clinical presentation and diagnostic findings.",
@@ -1119,56 +1119,29 @@
                   "type": "object",
                   "properties": {
                     "status": { "type": "boolean", "description": "If `false`, input was not related to treatment plans." },
-                    "reason": {
+                    "reason": { "type": "string", "description": "A brief explanation of why the input is relevant to veterinary medicine." },
+                    "response": {
                       "type": "object",
                       "properties": {
-                        "Plain English Summary": { "type": "string" },
-                        "Plain English Concise": { "type": "string" },
+                        "Plain English Concise": { "type": "string", "description": "A concise summary of the treatment plan." },
+                        "Plain English Summary": { "type": "string", "description": "A detailed summary of the treatment plan in plain English." },
                         "Treatment Plan Details": {
                           "type": "object",
-                          "properties": {
-                            "Treatment Options": { "type": "string" },
-                            "Medications": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "Name": { "type": "string" },
-                                  "Role": { "type": "string" },
-                                  "Dosage": { "type": "string" }
-                                }
-                              }
-                            },
-                            "Dietary Management": { "type": "string" },
-                            "Regular Veterinary Monitoring": {
-                              "type": "object",
-                              "properties": {
-                                "Intervals": { "type": "string" },
-                                "Tests": { "type": "array", "items": { "type": "string" } }
-                              }
-                            },
-                            "Symptom Management": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "Symptom": { "type": "string" },
-                                  "Management": { "type": "string" }
-                                }
-                              }
-                            },
-                            "Lifestyle Modifications": { "type": "string" },
-                            "Possible Surgical Options": {
-                              "type": "object",
-                              "properties": {
-                                "Option": { "type": "string" },
-                                "Indication": { "type": "string" },
-                                "Risks": { "type": "string" },
-                                "Post-operative Management": { "type": "string" }
-                              }
-                            },
-                            "Owner Education": { "type": "array", "items": { "type": "string" } }
-                          }
+                            "properties": {
+                              "diagnosis_name": { "type": "string", "description": "The name of the condition being treated." },
+                              "treatment_plan_name": { "type": "string", "description": "The name of the specific treatment plan." },
+                              "treatment_goal": { "type": "string", "description": "The objective of the treatment plan." },
+                              "medications": { "type": "string", "description": "Details of medications used in treatment, including name, dosage, and role." },
+                              "dietary_management": { "type": "string", "description": "Dietary recommendations for managing the condition." },
+                              "lifestyle_modifications": { "type": "string", "description": "Lifestyle adjustments to aid in treatment and recovery." },
+                              "symptom_management": { "type": "string", "description": "Methods used to manage symptoms associated with the condition." },
+                              "non-surgical_options": { "type": "string", "description": "Non-surgical treatment alternatives." },
+                              "possible_surgical_options": { "type": "string", "description": "Surgical interventions if applicable." },
+                              "preventative_options": { "type": "string", "description": "Preventative strategies to reduce recurrence." },
+                              "regular_veterinary_monitoring": { "type": "string", "description": "Frequency of follow-ups and recommended diagnostic tests." },
+                              "owner_education": { "type": "string", "description": "Key educational points for pet owners regarding the condition and treatment." }
+                            }
+                          
                         }
                       }
                     }

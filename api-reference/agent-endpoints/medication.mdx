@@ -1,12 +1,45 @@
 ---
 title: 'Medication'
-openapi: 'POST /medication_agent'
+openapi: 'POST /medication_agent_v2'
 ---
 
 ## Request Example
+
+**Note:** The species (e.g., dog, cat, etc.) must be included in the input.
+
 ```json
 {
-  "input": "<String>"
+  "input": "What is the dosing for Carprofen in dogs"
 }
 ```
+
+
+## Example Response
+```json
+{
+    "reason": "The user's inquiry is about the dosing of Carprofen, which is a medication used in veterinary medicine for dogs. This is directly relevant to veterinary medicine medication.",
+    "response": {
+        "Medication Details": {
+            "Carprofen": {
+                "administration_and_route": "Carprofen is available in tablet form and is administered orally. It can be given with or without food, but administering with food may reduce the risk of gastrointestinal upset.",
+                "adverse_effects": "Adverse effects are uncommon but may include gastrointestinal issues (vomiting, diarrhea, inappetence), lethargy, and in rare cases, hepatocellular damage or renal disease. Other potential effects include neurologic, hematologic, dermatologic, and hypersensitivity reactions.",
+                "client_information": "Ensure pet owners understand the importance of adhering to the prescribed dosage and administration schedule. Advise them to monitor for any signs of adverse effects and to keep the medication out of reach of children and other animals.",
+                "contraindications": "Carprofen should not be used in dogs with known hypersensitivity to the drug, or in dogs with pre-existing liver or kidney disease, bleeding disorders, or gastrointestinal ulcers.",
+                "dosing_by_species": "For dogs, the typical dosage is 2.2 mg/kg (1 mg/lb) given orally twice daily or 4.4 mg/kg (2 mg/lb) once daily. The exact dosage may vary based on the specific condition being treated and the individual dog's response.",
+                "drug_interactions": "Carprofen should not be used concurrently with other NSAIDs or corticosteroids due to increased risk of gastrointestinal ulceration. Caution is advised when used with other medications that affect renal function.",
+                "drug_name_and_classification": "Carprofen, a nonsteroidal anti-inflammatory drug (NSAID). Trade names include Rimadyl, Novox, and Vetprofen.",
+                "indications_and_uses": "Carprofen is used for the relief of pain and inflammation associated with osteoarthritis and for the management of postoperative pain in dogs.",
+                "monitoring_parameters": "Baseline and periodic physical examinations, complete blood count (CBC), serum chemistry panel with electrolytes, and urinalysis are recommended to monitor for potential adverse effects.",
+                "notes": "Carprofen has been associated with idiosyncratic hepatotoxicity, particularly in Labrador Retrievers, although this breed is commonly treated with the drug. The incidence of hepatopathy is low, approximately 0.05% or less.",
+                "overdose_information": "Symptoms of overdose may include gastrointestinal distress, renal failure, and hepatotoxicity. Treatment involves immediate discontinuation of the drug, supportive care, and symptomatic treatment.",
+                "pharmacology_and_mechanism_of_action": "Carprofen works by inhibiting cyclooxygenase (COX) enzymes, which are involved in the synthesis of prostaglandins. Prostaglandins are mediators of inflammation and pain, so their inhibition results in reduced inflammation and analgesia.",
+                "precautions_and_warnings": "Use with caution in geriatric dogs or those with pre-existing conditions such as dehydration, renal or hepatic insufficiency. The safety of carprofen in pregnant, breeding, or lactating dogs has not been established.",
+                "withdrawal_times": "Not specified in the knowledge base"
+            }
+        },
+        "Plain English Concise": "Carprofen is an NSAID used in dogs to relieve pain and inflammation from osteoarthritis and postoperative pain, dosed at 2.2 mg/kg twice daily or 4.4 mg/kg once daily. Avoid use in dogs with liver or kidney disease, and monitor for gastrointestinal or hepatic adverse effects.",
+        "Plain English Summary": "Carprofen is a nonsteroidal anti-inflammatory drug (NSAID) used in dogs to alleviate pain and inflammation associated with osteoarthritis and to manage postoperative pain. The typical dosage for dogs is 2.2 mg/kg administered orally twice daily or 4.4 mg/kg once daily, with adjustments made based on individual patient needs. It should not be used in dogs with known hypersensitivity, liver or kidney disease, or bleeding disorders, and caution is advised in geriatric or compromised dogs. Adverse effects, though uncommon, may include gastrointestinal issues and, rarely, hepatocellular damage, with Labrador Retrievers potentially at increased risk for idiosyncratic hepatotoxicity. Monitoring with regular physical exams and lab work is recommended, and concurrent use with other NSAIDs or corticosteroids should be avoided to prevent gastrointestinal complications."
+    },
+    "status": true
+}
 

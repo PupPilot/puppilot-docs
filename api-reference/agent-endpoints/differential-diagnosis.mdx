@@ -1,11 +1,82 @@
 ---
 title: 'Differential Diagnosis'
-openapi: 'POST /ddx_agent'
+openapi: 'POST /ddx_agent_v2'
 ---
 
 ## Request Example
+
+**Note:** The species (e.g., dog, cat, etc.) must be included in the input.
 ```json
 {
-  "input": "<String>"
+  "input": "7 year old female spayed golden retriever is panting a lot more recently. Still eating and drinking normally. No vomiting or diarrhea but seems more lethargic."
+}
+```
+
+## Example Response
+
+```json
+{
+    "reason": "The prompt describes a medical concern in a 7-year-old female spayed golden retriever, specifically increased panting and lethargy. These symptoms are relevant to veterinary medicine and could be addressed through a differential diagnosis approach to determine the underlying cause.",
+    "response": {
+        "Differential Diagnosis Details": {
+            "Cardiac Issues": {
+                "cause_etiology": "Cardiac issues in dogs can be caused by a variety of factors including genetic predispositions, nutritional deficiencies, idiopathic causes, or cardiotoxicity from certain medications.",
+                "commonly_confused_with": "Differentials to consider include dilated cardiomyopathy, arrhythmogenic right ventricular cardiomyopathy, and myocarditis, as these conditions can present with similar clinical signs.",
+                "diagnosis_rule_outs": "Diagnosis typically involves a thorough physical examination, listening for heart murmurs, checking for arrhythmias, and may include imaging such as echocardiography or chest X-rays, as well as blood tests to assess heart function.",
+                "name": "Cardiac Issues",
+                "prognosis": "The prognosis for cardiac issues in dogs varies widely depending on the specific condition, its severity, and how early it is diagnosed and treated. Some conditions can be managed with medication and lifestyle changes, while others may have a more guarded prognosis.",
+                "risk_factors_predispositions": "Certain breeds, such as golden retrievers, may have a genetic predisposition to cardiac issues, and factors like age and overall health can also play a role.",
+                "symptoms_clinical_signs": "Common signs in dogs include weakness, lethargy, collapse, abdominal distension from ascites, respiratory signs such as tachypnea, dyspnea, and coughing, as well as potential arrhythmias like atrioventricular block, sinus node dysfunction, and tachycardia."
+            },
+            "Cushing's Disease": {
+                "cause_etiology": "Cushing's Disease, or hyperadrenocorticism, is caused by an overproduction of cortisol by the adrenal glands, often due to a pituitary tumor (pituitary-dependent hyperadrenocorticism) or, less commonly, an adrenal tumor (adrenal-dependent hyperadrenocorticism).",
+                "commonly_confused_with": "Cushing's Disease can be confused with diabetes mellitus, hypothyroidism, and other endocrine disorders due to overlapping symptoms such as increased thirst and urination.",
+                "diagnosis_rule_outs": "Diagnosis typically involves a combination of clinical signs, blood tests such as the ACTH stimulation test or low-dose dexamethasone suppression test, and imaging studies to assess the adrenal glands.",
+                "name": "Cushing's Disease",
+                "prognosis": "The prognosis for Cushing's Disease varies; with appropriate management, many dogs can live a good quality of life, but lifelong treatment and monitoring are often required.",
+                "risk_factors_predispositions": "Middle-aged to older dogs, particularly certain breeds such as poodles, dachshunds, and terriers, are more predisposed to developing Cushing's Disease. Golden Retrievers may also be at risk due to their size and age-related factors.",
+                "symptoms_clinical_signs": "Common clinical signs in dogs include increased panting, lethargy, increased appetite, increased thirst and urination, and a pot-bellied appearance."
+            },
+            "Hypothyroidism": {
+                "cause_etiology": "Hypothyroidism in dogs is primarily caused by lymphocytic thyroiditis or idiopathic atrophy of the thyroid gland, leading to insufficient production of thyroid hormones.",
+                "commonly_confused_with": "Hypothyroidism can be confused with other endocrine disorders such as Cushing's disease or diabetes mellitus due to overlapping symptoms like lethargy and weight changes.",
+                "diagnosis_rule_outs": "Diagnosis typically involves a combination of clinical signs, serum chemistry profile, and thyroid function tests, including measuring serum total T4 and TSH levels.",
+                "name": "Hypothyroidism",
+                "prognosis": "With appropriate thyroid hormone replacement therapy, the prognosis for dogs with hypothyroidism is generally good, with most dogs showing significant improvement in clinical signs.",
+                "risk_factors_predispositions": "Middle-aged dogs, particularly certain breeds like golden retrievers, are predisposed to hypothyroidism, with a higher incidence in spayed females.",
+                "symptoms_clinical_signs": "Common clinical signs of hypothyroidism in dogs include lethargy, weight gain despite normal appetite, cold intolerance, and dermatological issues such as a dull coat, hair loss, and thickened skin."
+            },
+            "Laryngeal paralysis": {
+                "cause_etiology": "Acquired laryngeal paralysis is a disorder of middle-aged and older large- and giant-breed dogs, characterized as an idiopathic bilateral mononeuropathy affecting the recurrent laryngeal nerve. It is often a component of a larger generalized polyneuropathy, known as geriatric-onset laryngeal paralysis polyneuropathy (GOLPP). The etiology of GOLPP has not been determined, but there is a suggested predisposition in Labrador retrievers, indicating a possible genetic link.",
+                "commonly_confused_with": "Differentials to consider include esophageal dysfunction, generalized polyneuropathy, and other causes of respiratory distress or stridor.",
+                "diagnosis_rule_outs": "Diagnosis typically involves a combination of clinical history, physical examination, and laryngoscopy to visualize the laryngeal function. Electrophysiologic testing and histologic confirmation of neuropathy may be used to confirm the diagnosis and rule out other conditions.",
+                "name": "Laryngeal paralysis",
+                "prognosis": "The prognosis varies depending on the severity of the condition and the presence of any comorbid conditions. Management often involves surgical intervention, such as unilateral arytenoid lateralization, and addressing any underlying polyneuropathy.",
+                "risk_factors_predispositions": "Labrador retrievers are overrepresented in studies of late-onset laryngeal paralysis, suggesting a possible genetic predisposition. Male dogs are diagnosed with GOLPP about twice as often as female dogs.",
+                "symptoms_clinical_signs": "Patients are often presented for evaluation of respiratory distress, noisy breathing, dysphonia, gagging, coughing, retching, exercise intolerance, or collapse. Respiratory stridor is the most common clinical sign, and laryngeal paralysis should be suspected in any dog with inspiratory stridor, dysphonia, and/or exercise intolerance."
+            },
+            "Pain or Discomfort": {
+                "cause_etiology": "Pain or discomfort in canines can be caused by a variety of conditions including osteoarthritis, hip dysplasia, trauma, or other musculoskeletal disorders.",
+                "commonly_confused_with": "Pain or discomfort can be confused with other conditions such as neurological disorders or systemic illnesses that also cause lethargy and behavioral changes.",
+                "diagnosis_rule_outs": "Diagnosis of pain or discomfort involves a thorough physical examination, orthopedic assessment, and potentially imaging studies such as X-rays or CT scans to identify underlying causes.",
+                "name": "Pain or Discomfort",
+                "prognosis": "The prognosis for pain or discomfort depends on the underlying cause; with appropriate management, many conditions can be controlled to improve quality of life.",
+                "risk_factors_predispositions": "Large-breed dogs, such as golden retrievers, are predisposed to conditions like hip dysplasia and osteoarthritis, which can lead to pain and discomfort.",
+                "symptoms_clinical_signs": "Key clinical signs of pain or discomfort in canines include increased panting, lethargy, reluctance to move, stiffness, lameness, and changes in behavior such as irritability or withdrawal."
+            },
+            "Respiratory Issues": {
+                "cause_etiology": "Laryngeal paralysis in dogs can be idiopathic or associated with esophageal dysfunction and megaesophagus, potentially representing a diffuse polyneuropathy or extensive dysfunction of the vagal nerve.",
+                "commonly_confused_with": "Differentials to consider include other causes of respiratory distress such as aspiration pneumonia, megaesophagus, and other upper airway obstructions.",
+                "diagnosis_rule_outs": "Diagnosis typically involves a thorough clinical examination, observation of clinical signs, and may include imaging or endoscopic evaluation to assess the laryngeal function.",
+                "name": "Laryngeal Paralysis",
+                "prognosis": "The prognosis can vary depending on the severity and underlying cause, but with appropriate management, many dogs can have a good quality of life.",
+                "risk_factors_predispositions": "Golden retrievers are among the breeds more frequently affected by acquired laryngeal paralysis.",
+                "symptoms_clinical_signs": "Common clinical signs include respiratory distress, noisy breathing, dysphonia (change in character of the bark), gagging, coughing, retching, exercise intolerance, and collapse. Inspiratory stridor is the most common clinical sign."
+            }
+        },
+        "Plain English Concise": "Hypothyroidism, Cushing's disease, cardiac issues, laryngeal paralysis, and pain/discomfort are differential diagnoses for the lethargy in a 7-year-old female spayed golden retriever presenting with increased panting; diagnosis requires targeted tests and examination to distinguish between these conditions.",
+        "Plain English Summary": "For the 7-year-old female spayed golden retriever exhibiting increased panting and lethargy, hypothyroidism emerges as a leading differential diagnosis due to her age, breed, and sex, aligning with the common signs of lethargy and predisposition in middle-aged, female, spayed dogs. However, cardiac issues should also be considered as golden retrievers are predisposed to such conditions, and symptoms like lethargy could indicate underlying cardiac problems, which need to be ruled out through a thorough cardiovascular examination. Additionally, the potential for pain or discomfort due to musculoskeletal disorders like osteoarthritis should not be overlooked, as these conditions are common in large breeds and can manifest as lethargy and increased panting. Laryngeal paralysis and Cushing's Disease are also possible considerations, though less likely given the current presentation but should be ruled out through appropriate diagnostic tests. Accurate diagnosis would benefit from thyroid function tests, cardiovascular evaluation, and possibly imaging to assess for musculoskeletal issues, allowing for targeted treatment plans."
+    },
+    "status": true
 }
 ```
