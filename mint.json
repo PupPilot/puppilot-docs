@@ -16,12 +16,7 @@
     }
   },
   "custom": {
-    "css": "/custom.css",
-    "api": {
-      "playground": {
-        "disableProxy": true
-      }
-    }
+    "css": "/custom.css"
   },
   "topbarCtaButton": {
     "name": "Contact Us",
@@ -169,6 +164,11 @@
   "footerSocials": {
     "instagram": "https://www.instagram.com/puppilot.ai",
     "linkedin": "https://www.linkedin.com/company/pup-pilot"
-  }
+  }, 
+  "api": {
+      "playground": {
+        "disableProxy": true
+      }
+    }
 }
 
