@@ -3,14 +3,42 @@ title: 'Differential Diagnosis'
 openapi: 'POST /ddx_agent_v2'
 ---
 
+
+## How to Use
+
+**Required Input**
+- **Species** (e.g., dog, cat) must be included for accurate diagnosis.
+
+ **Recommended Details** *(Optional but improves accuracy)*
+- **Signalment:** Breed, age, sex, and spayed/neutered status.
+- **Symptoms & Timeline:** Describe the primary concern, duration, and any noticeable changes.
+- **Medical History:** Prior conditions, medications, and any relevant past diagnoses.
+- **Other Observations:** Behavioral changes, appetite, drinking habits, and other relevant details.
+
+We can process various input types, such as:
+- A structured clinical history
+- A free-form chat history with relevant details
+- A direct question about potential conditions
+- A summarized set of symptoms
+
+Regardless of format, we extract pertinent medical context and generate differentials accordingly.
+
 ## Request Example
 
-**Note:** The species (e.g., dog, cat, etc.) must be included in the input.
 ```json
 {
   "input": "7 year old female spayed golden retriever is panting a lot more recently. Still eating and drinking normally. No vomiting or diarrhea but seems more lethargic."
 }
 ```
+
+### Input Variability
+We can process various types of inputs, such as:
+- A structured clinical history
+- A free-form chat history with relevant details
+- A direct question about potential conditions
+- A summarized set of symptoms
+
+Regardless of the format, can will extract pertinent medical context and generate differentials accordingly.
 
 ## Example Response
 

@@ -1035,7 +1035,7 @@
     "/ddx_agent_v2": {
       "post": {
         "summary": "Differential Diagnosis Agent",
-        "description": "Generates differential diagnoses based on clinical presentation and diagnostic findings.",
+        "description": "Generates differential diagnoses based on clinical history.",
         "requestBody": {
           "required": true,
           "content": {

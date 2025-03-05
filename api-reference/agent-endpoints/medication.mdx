@@ -3,9 +3,23 @@ title: 'Medication'
 openapi: 'POST /medication_agent_v2'
 ---
 
-## Request Example
+## How to Use
 
-**Note:** The species (e.g., dog, cat, etc.) must be included in the input.
+**Required Input**
+- **Species** (e.g., dog, cat) must be included for an accurate treatment plan.
+- **Medication** name must be included or no response will be generated.
+
+**Accepted Input Types**
+
+We can process various input formats, including:
+- A structured clinical note
+- A free-form chat history with relevant details
+- A direct question about a medication
+
+
+Regardless of format, we extract pertinent medical context and generate medication information accordingly.
+
+## Request Example
 
 ```json
 {
