@@ -13,11 +13,10 @@ openapi: 'POST /medication_agent_v2'
 
 We can process various input formats, including:
 - A structured clinical note
-- A free-form chat history with relevant details
+- A free-form chat history with relevant details *(This input type can be highly customized to the user's needs.)*
 - A direct question about a medication
 
-
-Regardless of format, we extract pertinent medical context and generate medication information accordingly.
+*Inputs must be relevant to veterinary medicine and specific to the requested agent. However, the system is designed to process various formats and will extract the necessary medical context while filtering out irrelevant details to generate medication details.*
 
 ## Request Example
 
