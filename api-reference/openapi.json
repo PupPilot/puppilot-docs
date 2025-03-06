@@ -241,10 +241,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
+                  "patient_name": { "type": "string" },
                   "description": { "type": "string" }
                 },
-                "required": ["name", "description"]
+                "required": ["patient_name", "description"]
               }
             }
           }
@@ -259,7 +259,7 @@
                   "properties": {
                     "public_id": { "type": "string" },
                     "updated_at": { "type": "string" },
-                    "name": { "type": "string" },
+                    "patient_name": { "type": "string" },
                     "description": { "type": "string" },
                     "organization_public_id": { "type": "string" }
                   }
@@ -292,7 +292,7 @@
                   "properties": {
                     "public_id": { "type": "string" },
                     "updated_at": { "type": "string" },
-                    "name": { "type": "string" },
+                    "patient_name": { "type": "string" },
                     "description": { "type": "string" },
                     "organization_public_id": { "type": "string" }
                   }
@@ -336,7 +336,7 @@
                         "properties": {
                           "public_id": { "type": "string" },
                           "updated_at": { "type": "string" },
-                          "name": { "type": "string" },
+                          "patient_name": { "type": "string" },
                           "description": { "type": "string" },
                           "organization_public_id": { "type": "string" }
                         }
