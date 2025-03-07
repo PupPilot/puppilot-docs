@@ -1092,6 +1092,44 @@
         ]
       }
     },
+    "/fast_ddx_agent": {
+      "post": {
+        "summary": "Differential Diagnosis Agent - unstructured response",
+        "description": "Generates differential diagnoses based on clinical history.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": { "type": "string", "example": "<String>" }
+                },
+                "required": ["message"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Differential diagnosis details retrieved successfully.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "A plain text block containing the differential diagnosis details."
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
+    },
     "/treatment_plan_agent_v2": {
       "post": {
         "summary": "Treatment Plan Agent",

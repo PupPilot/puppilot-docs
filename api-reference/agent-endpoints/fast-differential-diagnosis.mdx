@@ -1,0 +1,69 @@
+---
+title: 'Differential Diagnosis (fast)'
+openapi: 'POST /fast_ddx_agent'
+---
+
+
+## How to Use
+
+**Required Input**
+- **Species** (e.g., dog, cat) must be included for accurate diagnosis.
+
+ **Recommended Details** *(Optional but improves accuracy)*
+- **Signalment:** Breed, age, sex, and spayed/neutered status.
+- **Symptoms & Timeline:** Describe the primary concern, duration, and any noticeable changes.
+- **Medical History:** Prior conditions, medications, and any relevant past diagnoses.
+- **Other Observations:** Behavioral changes, appetite, drinking habits, and other relevant details.
+
+We can process various input types, such as:
+- A structured clinical history
+- A free-form chat history with relevant details *(This input type can be highly customized to the user's needs.)*
+- A direct question about potential conditions
+- A summarized set of symptoms
+
+*Inputs must be relevant to veterinary medicine and specific to the requested agent. However, the system is designed to process various formats and will extract the necessary medical context while filtering out irrelevant details to generate accurate differentials.*
+
+## Request Example
+
+```json
+{
+  "message": "7 year old lab with a growth on upper left eyelid. The growth is fast growing, darkly pigmented and lobulated."
+}
+```
+
+### Input Variability
+We can process various types of inputs, such as:
+- A structured clinical history
+- A free-form chat history with relevant details
+- A direct question about potential conditions
+- A summarized set of symptoms
+
+Regardless of the format, can will extract pertinent medical context and generate differentials accordingly.
+
+## Example Response
+
+```text
+Based on the information provided, the differential diagnosis for a fast-growing, pigmented, and lobulated growth on the
+left upper eyelid of a 7-year-old Labrador Retriever includes:
+
+1. **Meibomian Gland Adenoma**: This is a common benign tumor of the eyelid in dogs, especially in older dogs. The
+lobulated appearance and location on the eyelid are consistent with this diagnosis. These tumors can be pigmented and
+may grow rapidly.
+
+2. **Melanoma**: Eyelid melanomas can appear as pigmented masses and may be lobulated. While they can be benign, they
+also have the potential to be malignant, so histopathological examination is necessary for a definitive diagnosis.
+
+3. **Squamous Cell Carcinoma (SCC)**: Although less common in pigmented areas, SCC can occur on the eyelids and may
+present as a rapidly growing mass. It is more common in areas with less pigmentation and more sun exposure.
+
+4. **Histiocytoma**: These are typically benign and can appear as rapidly growing masses. They are more common in
+younger dogs but can occur in older dogs as well.
+
+5. **Sebaceous Adenoma**: These are benign tumors that can appear on the eyelids and may have a lobulated appearance.
+They are common in older dogs.
+
+To differentiate between these conditions, a fine needle aspirate or biopsy of the mass would be recommended to obtain a
+definitive diagnosis. Histopathological examination will help determine the exact nature of the growth and guide
+appropriate treatment. Additionally, assessing the growth for any signs of ulceration, inflammation, or secondary
+infection can provide further diagnostic clues.
+```
