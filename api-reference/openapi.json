@@ -20,6 +20,7 @@
       "post": {
         "summary": "Login",
         "description": "Authenticate user and get an access token.",
+        "security": [],
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Version"
@@ -108,6 +109,7 @@
       "post": {
         "summary": "Reset Password",
         "description": "Reset user password with token that was emailed.",
+        "security": [],
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Version"
@@ -149,6 +151,7 @@
       "post": {
         "summary": "Request Reset Password",
         "description": "Request a token to reset user password.",
+        "security": [],
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Version"
