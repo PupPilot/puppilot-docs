@@ -106,5 +106,23 @@ If an error occurs during processing, the API will return a JSON object with an 
 
 ## Additional Example Requests and Responses
 
-### Example 1: TODO
+### Example 1:
 
+### Example Request
+```json
+{
+  "input": "Can you tell me about amoxicillin for my dog?",
+  "model": "DeepSeek-R1"
+}
+```
+
+### Example Successful Response
+```json
+{
+  "reason": {
+    "Plain English Concise": "Amoxicillin is an antibiotic for dogs that treats bacterial infections by inhibiting cell wall synthesis. It works against certain bacteria but not resistant strains. It is well-absorbed orally, often given with food, and available in tablets and suspension. It can cause mild gastrointestinal upset and may be combined with clavulanic acid to overcome resistance. Monitoring includes checking for infection improvement and side effects. Follow vet instructions to prevent resistance.",
+    "Plain English Summary": "Amoxicillin is an aminopenicillin antibiotic used in dogs to treat bacterial infections by inhibiting cell wall synthesis. It is effective against certain gram-negative aerobes like E. coli, some gram-positive bacteria, and many anaerobic bacteria, but not against methicillin-resistant staphylococci or other resistant strains like Pseudomonas aeruginosa. It has good oral bioavailability in dogs and is often given with food to reduce gastrointestinal distress. Available in various tablet strengths and as a powder for oral suspension, amoxicillin is generally well-tolerated, though it can cause gastrointestinal upset. Resistance can occur due to beta-lactamase-producing bacteria, so it is sometimes combined with clavulanic acid. Monitoring includes checking for clinical improvement and watching for adverse effects. It is important to use amoxicillin judiciously to prevent resistance and follow the veterinarian's instructions for dosing and treatment duration."
+  },
+  "status": true
+}
+```
