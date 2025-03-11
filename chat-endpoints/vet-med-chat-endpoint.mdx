@@ -20,3 +20,109 @@ Our generation services focus on leveraging advanced LLMs with accredited VetMed
 - Enhanced conversational AI with RAG-driven contextual understanding.
 - Dynamic integration of curated VetMed data for precision.
 - Streamlined outputs for single-turn interactions tailored to veterinary workflows.
+
+## Request
+
+### Request Body
+The request body should be:
+- **input** (string, required): The user's query.
+- **model** (string, optional, default=`gpt-4o`): The LLM to query against. It can be one of the following:
+```
+gpt-4o
+gpt-4o-mini
+o1
+o1-mini
+o3-mini
+Llama-3.3
+Llama-3.2
+Mixtral
+Qwen
+DeepSeek-V3
+DeepSeek-R1
+```
+
+In the absense of a `model` parameter, it will default to `gpt-4o`.
+
+### Example Request
+```json
+{
+  "input": "What causes allergies in a dog?",
+  "model": "DeepSeek-R1"
+}
+```
+
+## Response
+
+### Successful Response (Relevant Input)
+If the input is relevant to veterinary medicine, the API will return a JSON object with:
+- **status**: `true`
+- **reason**: A structured dictionary containing the answer to the query.
+
+#### `reason` Object Structure
+The **reason** object contains:
+- **Plain English Summary**: A detailed summary of the response.
+- **Plain English Concise**: A concise overview of the response.
+
+### Example Successful Response
+```json
+{
+  "status": true,
+  "result": {
+    "reason": {
+      "Plain English Concise": "Dog allergies are mainly caused by environmental and food allergens, flea bites, and contact irritants. Genetic factors and immune responses play a role, with certain breeds being more susceptible. Symptoms include itching and inflammation, often leading to secondary infections. Diagnosis involves exclusion of other causes, and treatment includes allergen avoidance and managing infections.",
+      "Plain English Summary": "The primary causes of allergies in dogs are immune-mediated hypersensitivity reactions triggered by environmental allergens, food allergens, flea bites, and contact allergens. Environmental allergens, such as pollens, dust mites, and mold spores, are linked to Canine Atopic Dermatitis (CAD), which is influenced by genetic factors and defective skin barriers. Food allergies, known as Cutaneous Adverse Food Reactions (CAFR), are commonly triggered by proteins like beef, dairy, and chicken, with potential cross-reactivity between similar proteins. Flea allergy dermatitis is a reaction to flea saliva, while contact allergens include topical medications and shampoos. Key pathophysiological factors include skin barrier dysfunction and immune dysregulation, leading to symptoms like itching and inflammation, often resulting in secondary infections. Certain breeds, such as West Highland White Terriers and German Shepherds, are predisposed to these allergies. Diagnosis involves ruling out other causes, and treatment focuses on avoiding allergens, immunotherapy, and managing infections."
+    }
+  }
+}
+```
+
+### Unsuccessful Response (Irrelevant Input)
+If the input is not relevant to veterinary medicine, the API will return a JSON object with:
+- **status**: false
+- **reason**: A string explaining why the input is not relevant.
+
+#### Example Unsuccessful Response
+```json
+{
+  "status": false,
+  "reason": "The query was not found to be relevant to the topic."
+}
+```
+
+### Error Handling
+If an error occurs during processing, the API will return a JSON object with an **error** key:
+```json
+{
+  "error": "<ErrorType>: <ErrorMessage>"
+}
+```
+
+#### Example Error Response
+```json
+{
+  "error": "ValueError: The query was not found to be relevant to the topic."
+}
+```
+
+## Additional Example Requests and Responses
+
+### Example 1:
+
+### Example Request
+```json
+{
+  "input": "Can you tell me about amoxicillin for a dog?",
+  "model": "DeepSeek-R1"
+}
+```
+
+### Example Successful Response
+```json
+{
+  "reason": {
+    "Plain English Concise": "Amoxicillin is an antibiotic for dogs that treats bacterial infections by inhibiting cell wall synthesis. It works against certain bacteria but not resistant strains. It is well-absorbed orally, often given with food, and available in tablets and suspension. It can cause mild gastrointestinal upset and may be combined with clavulanic acid to overcome resistance. Monitoring includes checking for infection improvement and side effects. Follow vet instructions to prevent resistance.",
+    "Plain English Summary": "Amoxicillin is an aminopenicillin antibiotic used in dogs to treat bacterial infections by inhibiting cell wall synthesis. It is effective against certain gram-negative aerobes like E. coli, some gram-positive bacteria, and many anaerobic bacteria, but not against methicillin-resistant staphylococci or other resistant strains like Pseudomonas aeruginosa. It has good oral bioavailability in dogs and is often given with food to reduce gastrointestinal distress. Available in various tablet strengths and as a powder for oral suspension, amoxicillin is generally well-tolerated, though it can cause gastrointestinal upset. Resistance can occur due to beta-lactamase-producing bacteria, so it is sometimes combined with clavulanic acid. Monitoring includes checking for clinical improvement and watching for adverse effects. It is important to use amoxicillin judiciously to prevent resistance and follow the veterinarian's instructions for dosing and treatment duration."
+  },
+  "status": true
+}
+```

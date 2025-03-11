@@ -4,5 +4,8 @@
   },
   "devDependencies": {
     "mintlify": "^4.0.311"
+  },
+  "scripts": {
+    "dev": "mintlify dev"
   }
 }

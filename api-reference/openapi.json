@@ -1278,6 +1278,54 @@
           }
         ]
       }
+    },
+    "/chat_agent": {
+      "post": {
+        "summary": "Chatbot Agent",
+        "description": "Provides single-turn conversational capabilities tailored for veterinary use cases.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": { "type": "string", "example": "<String>" },
+                  "model": { "type": "string", "example": "<String>" }
+                },
+                "required": ["input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chatbot found an answer to the query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "boolean", "description": "If `false`, input was not related to treatment plans." },
+                    "reason": {
+                      "type": "object",
+                      "properties": {
+                        "Plain English Concise": { "type": "string", "description": "A concise summary of the answer." },
+                        "Plain English Summary": { "type": "string", "description": "A detailed summary of the answer in plain English." }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
     }
   },
   "components": {
