@@ -46,7 +46,7 @@ In the absense of a `model` parameter, it will default to `gpt-4o`.
 ### Example Request
 ```json
 {
-  "input": "How to get a toy unstuck from a dog's throat?",
+  "input": "What causes allergies in a dog?",
   "model": "DeepSeek-R1"
 }
 ```
@@ -69,8 +69,8 @@ The **reason** object contains:
   "status": true,
   "result": {
     "reason": {
-      "Plain English Concise": "A dog with a toy stuck in its throat needs immediate vet care. Endoscopic removal is preferred to avoid complications. Do not attempt home remedies like inducing vomiting. Delays can lead to severe esophageal damage.",
-      "Plain English Summary": "If a dog has a toy stuck in its throat, immediate veterinary intervention is crucial to prevent serious complications. Esophageal foreign bodies should be removed promptly by a professional, ideally using endoscopy, which is the preferred method due to its high success rate and ability to visualize the esophagus. Delaying removal can lead to severe issues like esophageal perforation, esophagitis, or strictures. Home remedies such as inducing vomiting with hydrogen peroxide are not recommended, as they can worsen the situation. If endoscopy is not successful, surgical intervention may be necessary. After removal, the dog should be monitored for any esophageal damage, and medications like proton pump inhibitors and sucralfate may be prescribed to aid recovery."
+      "Plain English Concise": "Dog allergies are mainly caused by environmental and food allergens, flea bites, and contact irritants. Genetic factors and immune responses play a role, with certain breeds being more susceptible. Symptoms include itching and inflammation, often leading to secondary infections. Diagnosis involves exclusion of other causes, and treatment includes allergen avoidance and managing infections.",
+      "Plain English Summary": "The primary causes of allergies in dogs are immune-mediated hypersensitivity reactions triggered by environmental allergens, food allergens, flea bites, and contact allergens. Environmental allergens, such as pollens, dust mites, and mold spores, are linked to Canine Atopic Dermatitis (CAD), which is influenced by genetic factors and defective skin barriers. Food allergies, known as Cutaneous Adverse Food Reactions (CAFR), are commonly triggered by proteins like beef, dairy, and chicken, with potential cross-reactivity between similar proteins. Flea allergy dermatitis is a reaction to flea saliva, while contact allergens include topical medications and shampoos. Key pathophysiological factors include skin barrier dysfunction and immune dysregulation, leading to symptoms like itching and inflammation, often resulting in secondary infections. Certain breeds, such as West Highland White Terriers and German Shepherds, are predisposed to these allergies. Diagnosis involves ruling out other causes, and treatment focuses on avoiding allergens, immunotherapy, and managing infections."
     }
   }
 }
@@ -111,7 +111,7 @@ If an error occurs during processing, the API will return a JSON object with an 
 ### Example Request
 ```json
 {
-  "input": "Can you tell me about amoxicillin for my dog?",
+  "input": "Can you tell me about amoxicillin for a dog?",
   "model": "DeepSeek-R1"
 }
 ```
