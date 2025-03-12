@@ -1216,7 +1216,7 @@
     "/treatment_plan_agent_v2": {
       "post": {
         "summary": "Treatment Plan Agent",
-        "description": "Generates treatment plan based on clinical presentation and diagnostic findings.",
+        "description": "Generates treatment plan based on diagnosis or clinical presentation and diagnostic findings.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1282,7 +1282,7 @@
     "/fast_treatment_plan_agent": {
       "post": {
         "summary": "Treatment Plan Agent - unstructured response",
-        "description": "Generates treatment plan based on clinical presentation and diagnostic findings.",
+        "description": "Generates treatment plan based on diagnosis or clinical presentation and diagnostic findings.",
         "requestBody": {
           "required": true,
           "content": {
