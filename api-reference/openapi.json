@@ -1216,7 +1216,7 @@
     "/treatment_plan_agent_v2": {
       "post": {
         "summary": "Treatment Plan Agent",
-        "description": "Generates treatment plan based on clinical presentation and diagnostic findings.",
+        "description": "Generates treatment plan based on diagnosis or clinical presentation and diagnostic findings.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1267,6 +1267,44 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
+    },
+    "/fast_treatment_plan_agent": {
+      "post": {
+        "summary": "Treatment Plan Agent - unstructured response",
+        "description": "Generates treatment plan based on diagnosis or clinical presentation and diagnostic findings.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": { "type": "string", "example": "<String>" }
+                },
+                "required": ["message"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Treatment plan details retrieved successfully.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "A plain text block containing the treatment plan."
                 }
               }
             }
