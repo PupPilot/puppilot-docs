@@ -1,0 +1,44 @@
+---
+title: 'Treatment Plan (fast)'
+openapi: 'POST /fast_treatment_plan_agent'
+---
+
+
+## How to Use
+
+**Required Input**
+- **Species** (e.g., dog, cat) must be included for an accurate treatment plan.
+
+**Recommended Details** *(Optional but improves accuracy)*
+- **Signalment:** Breed, age, sex, and spayed/neutered status.
+- **Specific Disease of Interest:** If you are looking for a treatment plan for a particular condition, providing the disease name ensures a more targeted response.
+- **Medical History:** If no specific disease is named, the AI will analyze relevant medical history and suggest treatment plans based on the most likely differentials.
+
+**Accepted Input Types**
+
+We can process various input formats, including:
+- A structured clinical history
+- A free-form chat history with relevant details *(This input type can be highly customized to the user's needs.)*
+- A direct question about a disease 
+- A summarized set of symptoms
+
+*Inputs must be relevant to veterinary medicine and specific to the requested agent. However, the system is designed to process various formats and will extract the necessary medical context while filtering out irrelevant details to generate accurate treatment plans.*
+
+## Request Example
+
+```json
+{
+  "message": "What is the treatment plan for a dog with a foxtail in its paw?"
+}
+```
+
+## Example Response
+
+```text
+- **treatment_goal**: The primary objective is to remove the foxtail and prevent infection or further complications.
+- **medications**: Administer antibiotics if there is evidence of infection or if the foxtail has caused significant tissue damage. Pain relief medications may also be prescribed to manage discomfort.
+- **symptom_management**: Clean the affected area thoroughly and apply antiseptic to prevent infection. Monitor for signs of swelling, redness, or discharge, which may indicate infection.
+- **lifestyle_modifications**: Limit the dog's activity to prevent further irritation or injury to the affected paw. Consider using a protective bootie to keep the area clean and prevent the dog from licking or chewing at the site.
+- **regular_veterinary_monitoring**: Schedule follow-up appointments to ensure the foxtail has been completely removed and the area is healing properly. Monitor for any signs of infection or complications.
+- **preventative_options**: Advise the owner to regularly check the dog's paws, ears, and other areas for foxtails, especially after walks in areas where foxtails are common. Consider trimming the dog's fur to reduce the risk of foxtails becoming embedded.
+```
