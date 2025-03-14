@@ -158,6 +158,7 @@
         "api-reference/agent-endpoints/differential-diagnosis",
         "api-reference/agent-endpoints/fast-differential-diagnosis",
         "api-reference/agent-endpoints/treatment-plan",
+        "api-reference/agent-endpoints/fast-treatment-plan",
         "api-reference/agent-endpoints/chat-agent"
       ]
     }
