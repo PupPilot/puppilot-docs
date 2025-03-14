@@ -15,4 +15,15 @@ To receive webhook events from our system, you must first register your webhook 
 }
 ```
 
-The `"scribe"` event type triggers a notification to your webhook when a scribing process is complete, allowing your system to take action once the transcription is finalized.
+The `scribe` event type triggers a notification to your webhook at different stages of the scribing process, allowing your system to track progress and take action accordingly.
+
+### Webhook Triggers
+The `scribe` webhook fires at the following stages:
+
+- When a scribe request is created
+- When the scribe process starts
+- When the scribe process completes
+
+Each webhook event contains relevant information, including the recording session public ID. The `status` field indicates the current stage of the process. The final webhook also includes the output JSON and HTML.
+
+All webhook events have `event_type: scribe`, ensuring clarity that they are related to the scribing process.
