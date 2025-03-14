@@ -27,3 +27,35 @@ The `scribe` webhook fires at the following stages:
 Each webhook event contains relevant information, including the recording session public ID. The `status` field indicates the current stage of the process. The final webhook also includes the output JSON and HTML.
 
 All webhook events have `event_type: scribe`, ensuring clarity that they are related to the scribing process.
+
+### Example Webhook Payloads
+
+1. When a scribe request is created
+```json
+{
+  "public_id": "72e123a0-95f8-4c10-af00-7382b3719dk",
+  "recording_session_public_id": "d7db54cb-a097-40e7-a31f-4c3395510e70",
+  "status": "requested",
+  "event_type": "scribe"
+}
+```
+2. When the scribe process starts
+```json
+{
+  "public_id": "72e123a0-95f8-4c10-af00-7382b3719dk",
+  "recording_session_public_id": "d7db54cb-a097-40e7-a31f-4c3395510e70",
+  "status": "scribing",
+  "event_type": "scribe"
+}
+```
+3. When the scribe process completes
+```json
+{
+  "public_id": "72e123a0-95f8-4c10-af00-7382b3719dk",
+  "recording_session_public_id": "d7db54cb-a097-40e7-a31f-4c3395510e70",
+  "status": "scribed",
+  "event_type": "scribe",
+  "categories_output": [], 
+  "html_output": "" 
+}
+```
