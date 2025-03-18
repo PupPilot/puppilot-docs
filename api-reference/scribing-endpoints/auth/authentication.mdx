@@ -4,7 +4,7 @@ openapi: 'POST /auth/login'
 ---
 
 ## Overview
-Authenticate a user and receive an access token for API requests. Access tokens are valid for 1 hour. Use the refresh_token to obtain a new token when the access token expires.
+Authenticate a user and receive an access token for API requests. Access tokens are valid for 1 hour. Use the refresh token to obtain a new token when the access token expires.
 
 ## Request Body
 - **`email`** (string) - User’s email address.
@@ -16,3 +16,34 @@ Authenticate a user and receive an access token for API requests. Access tokens 
   "email": "user@example.com",
   "password": "securepassword"
 }
+```
+
+## Response
+- **`access_token`** (string) - The generated access token.
+- **`refresh_token`** (string) - The token used to refresh authentication.
+- **`token_type`** (string) - The type of token, typically "bearer".
+- **`expires_at`** (integer) - Timestamp of when the access token expires.
+- **`refresh_expires_at`** (integer) - Timestamp of when the refresh token expires.
+- **`user`** (object) - The authenticated user details.
+  - **`public_id`** (UUID) - The user's unique identifier.
+  - **`email`** (string) - The user's email address.
+  - **`name`** (string) - The user's name.
+  - **`organization_public_id`** (UUID) - The public identifier of the organization.
+
+## Example Response
+```json
+{
+  "access_token": "ACCESS_TOKEN_STRING",
+  "refresh_token": "REFRESH_TOKEN_STRING",
+  "token_type": "bearer",
+  "expires_at": 1713456789,
+  "refresh_expires_at": 1714056789,
+  "user": {
+    "public_id": "USER_PUBLIC_ID",
+    "email": "user@example.com",
+    "name": "User Name",
+    "organization_public_id": "ORGANIZATION_PUBLIC_ID"
+  }
+}
+```
+
