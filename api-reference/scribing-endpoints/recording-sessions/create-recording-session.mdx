@@ -4,17 +4,21 @@ openapi: 'POST /recording-sessions/create'
 ---
 
 ## Overview
-This endpoint creates a new recording session to be used for scribing. The generated <code>public_id</code> will be required for uploading your audio file in subsequent steps.
+This endpoint creates a new recording session to be used for scribing.  
+The generated `public_id` will be required for uploading your audio file in subsequent steps.
 
 ## Request Body
-- **`patient_name`** (string) - Name of the patient. 
- > **Note:** `patient_name` must match the patient's name in the uploaded audio (if any) to ensure the record is generated only for the scheduled patient. PupPilot uses this information to avoid inclusion of unrelated pet discussions.
-- **`description`** (string) - Short description of the session.
+- **`patient_name`** (string) - Name of the patient.  
+  > **Note:** `patient_name` must match the patient's name in the uploaded audio (if any) to ensure the record is generated only for the scheduled patient. PupPilot uses this information to avoid inclusion of unrelated pet discussions.  
+- **`description`** (string, optional) - Short description of the session.  
+- **`session_date`** (date, required) - The date of the session (**format: `YYYY-MM-DD`**).  
 
 ## Example Request
 ```json
 {
   "patient_name": "Max",
-  "description": "Wellness appointment"
+  "description": "Wellness appointment",
+  "session_date": "2025-03-18"
 }
+```
 
