@@ -5,7 +5,7 @@ icon: 'wrench'
 
 ## 📢 Overview
 
-To receive webhook events, your server must expose a publicly accessible HTTPS endpoint. This endpoint will handle webhook requests securely and validate them. Webhooks are sent as asynchronous HTTP POST requests containing event-related data.
+To receive webhook events, your server must expose a publicly accessible HTTPS endpoint. This endpoint will handle webhook requests securely and validate them. Webhooks are sent as asynchronous HTTP POST requests containing event-related data. These requests must be handled in near real-time, as they will not wait for a response before continuing execution.
 
 ## 🔗 Webhook URL Format
 
@@ -19,31 +19,20 @@ POST https://your-domain.com/webhook-handler
 
 ## 🔐 Security & Validation
 
-Each webhook request includes:
+Each webhook request includes an **HMAC SHA-256 signature** in the `X-Webhook-Signature` header. This signature is generated using a **pre-shared secret token** and the exact request payload.  
 
-1️⃣ **Authorization Header** → Ensures the request is from a trusted source.
+### **What is the Secret Token?**
+The **secret token** is a unique, private key that **only you and our system know**. It is used to sign webhook requests and allows your server to verify that they are **authentic and untampered**.
 
-2️⃣ **HMAC Signature (`X-Webhook-Signature`)** → Ensures data integrity and prevents tampering.
+- **How is it generated?** You generate the secret token and provide it to our system when configuring the webhook.
+- **How should it be stored?** It must be stored securely on your server and **never shared or exposed publicly**.
+- **How is it used?** It is used to compute a signature that validates the authenticity of incoming webhooks.
 
-### 1️⃣ Authorization Header
+### **How Signature Verification Works**
+The recipient must verify this signature to ensure:
 
-All webhook requests include a <code>Bearer</code> token for authentication. Your server **must** validate this token.
-
-**Example Header:**
-
-```http
-Authorization: Bearer <YOUR_SECRET_TOKEN>
-```
-
-#### Validation Steps:
-
-1. Extract the token from the `Authorization` header.
-2. Compare it to the **pre-shared secret** (provided by us).
-3. If invalid, reject the request with `HTTP 401 Unauthorized`.
-
-### 2️⃣ HMAC Signature (`X-Webhook-Signature`)
-
-Each webhook request contains an HMAC SHA-256 signature to verify payload integrity.
+- The request **originated from a trusted source** (authentication).
+- The request **was not altered in transit** (integrity).
 
 **Example Header:**
 
@@ -51,10 +40,10 @@ Each webhook request contains an HMAC SHA-256 signature to verify payload integr
 X-Webhook-Signature: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ```
 
-#### Validation Steps:
+### Validation Steps:
 
 1. Extract the `X-Webhook-Signature` from headers.
-2. Recompute the signature using your secret token and the request payload.
+2. Recompute the signature using your **secret token** and the request payload.
 3. Use `hmac.compare_digest()` to compare the expected vs. received signature.
 4. If they do not match, reject the request with `HTTP 403 Forbidden`.
 
@@ -78,34 +67,27 @@ WEBHOOK_SECRET = "your-secret-token"
 @app.post("/webhook-handler")
 async def webhook_handler(
     request: Request,
-    authorization: str = Header(None),
     x_webhook_signature: str = Header(None)
 ):
     """
     Webhook receiver with security validation.
-    Validates the Authorization token and ensures message integrity using HMAC.
+    Ensures message integrity using HMAC.
     """
     payload = await request.json()
     headers = dict(request.headers)
-
-    # Validate Authorization Header
-    if not authorization or not authorization.startswith("Bearer "):
-        logger.error("❌ Missing or invalid Authorization header.")
-        raise HTTPException(status_code=401, detail="Unauthorized: Missing or invalid Authorization header.")
-    auth_token = authorization.split("Bearer ")[-1]
-    if auth_token != WEBHOOK_SECRET:
-        logger.error("❌ Invalid authentication token.")
-        raise HTTPException(status_code=403, detail="Forbidden: Invalid authentication token.")
 
     # Validate HMAC Signature
     if not x_webhook_signature:
         logger.error("❌ Missing X-Webhook-Signature header.")
         raise HTTPException(status_code=400, detail="Bad Request: Missing signature header.")
     
+    # Normalize JSON to ensure signature consistency across different implementations
+    normalized_payload = json.dumps(payload, separators=(',', ':'), sort_keys=True).encode()
+
     # Recompute the expected signature
     expected_signature = hmac.new(
         WEBHOOK_SECRET.encode(),
-        json.dumps(payload, separators=(',', ':')).encode(),
+        normalized_payload,
         hashlib.sha256
     ).hexdigest()
     
@@ -122,9 +104,8 @@ async def webhook_handler(
 | Status Code | Meaning |
 |------------|---------|
 | `200 OK` | Webhook received and validated successfully. |
-| `400 Bad Request` | Missing required fields (e.g., signature, authorization). |
-| `401 Unauthorized` | Invalid or missing Authorization header. |
-| `403 Forbidden` | Signature mismatch or invalid auth token. |
+| `400 Bad Request` | Malformed request (e.g., missing JSON body, missing headers). |
+| `403 Forbidden` | Signature verification failed (invalid or missing signature). |
 
 ## 🔄 Retry Logic
 
@@ -146,3 +127,5 @@ Yes. Webhooks are event-driven. You can subscribe to different events.
 
 **What happens if my server is down?**  
 We will retry delivery as per our retry policy above.
+```
+
