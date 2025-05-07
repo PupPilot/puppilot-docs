@@ -1364,6 +1364,201 @@
           }
         ]
       }
+    },
+    "/auth/sign-in": {
+      "post": {
+        "summary": "Agent User Login",
+        "description": "Authenticate a user and get an access token.",
+        "security": [],
+        "tags": ["Agent Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "format": "email", "example": "agent_user@example.com" },
+                  "password": { "type": "string", "example": "agentSecurePassword123" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login for agent services. Token valid for a specific duration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": { "type": "string", "example": "<string>" },
+                    "refresh_token": { "type": "string", "example": "<string>" },
+                    "token_type": { "type": "string", "example": "bearer" },
+                    "expires_at": { "type": "integer", "format": "int64", "description": "Unix timestamp of when the access token expires.", "example": 1770000000 },
+                    "refresh_expires_at": { "type": "integer", "format": "int64", "description": "Unix timestamp of when the refresh token expires.", "example": 1770004000 },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string", "format": "uuid", "example": "<string>" },
+                        "email": { "type": "string", "format": "email", "example": "agent_user@example.com" },
+                        "name": { "type": "string", "example": "User Name" },
+                        "organization_id": { "type": "string", "format": "uuid", "example": "<string>" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "InvalidCredentials": {
+                    "value": {
+                      "detail": "Invalid credentials"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ]
+      }
+    },
+    "/chat": {
+      "post": {
+        "summary": "Agent Chat with Target Context",
+        "description": "Provides multi-turn conversational capabilities with Puppilot, allowing a target context (e.g., a vet-owner chat) and the history of the ongoing chat with Puppilot to be included. This endpoint is used for engaging in a continuous dialogue where the agent remembers previous parts of the conversation (via chat_history) and can reference a specific external context (via chat_context). Requires Bearer authentication.",
+        "tags": ["Agent Chat"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://agents-api.puppilot.co"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "The latest message input from the user to Puppilot.",
+                    "example": "Yes please provide guidance on urgent signs"
+                  },
+                  "chat_context": {
+                    "type": "string",
+                    "description": "The target context for the chat, e.g., a transcript of a conversation between an owner and a vet.",
+                    "example": "Owner: Hi, my rabbit Nibbles has been acting strangely... Vet: Thank you, that's very helpful."
+                  },
+                  "chat_history": {
+                    "type": "array",
+                    "description": "The history of the ongoing chat conversation with Puppilot.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": "string",
+                          "description": "A previous message input from the user to Puppilot.",
+                          "example": "what can the owner do at home to treat GI stasis if they cannot get the rabbit to the vet"
+                        },
+                        "output": {
+                          "type": "string",
+                          "description": "A previous message output from Puppilot.",
+                          "example": "For suspected rabbit GI stasis, veterinary evaluation is critical... Need guidance on feeding or urgent signs?"
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The ISO 8601 timestamp of when the chat history entry was recorded.",
+                          "example": "2025-05-05T10:00:00Z"
+                        }
+                      },
+                      "required": ["input", "output", "timestamp"]
+                    }
+                  }
+                },
+                "required": ["message", "chat_context", "chat_history"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response from the chat agent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "output": {
+                      "type": "string",
+                      "description": "The agent's response message.",
+                      "example": "For Nibbles, urgent veterinary signs include: no fecal output or very small, dry pellets >24 hrs..."
+                    }
+                  },
+                  "required": ["output"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input, missing required fields, or malformed JSON.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "MissingField": {
+                    "value": {
+                      "error": 400,
+                      "message": "Missing required field: message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "InvalidToken": {
+                    "value": {
+                      "error": 401,
+                      "message": "Authentication token is invalid or expired."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
