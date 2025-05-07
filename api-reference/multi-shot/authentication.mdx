@@ -1,4 +1,51 @@
 ---
 title: 'User Login'
-
+openapi: 'POST /auth/sign-in'
 ---
+
+## Overview
+Authenticate a user and receive an access token. This token is required to access this endpoint that necessitates user context (e.g., multi-shot chat endpoints).
+
+Access tokens have a defined validity period. Use the provided refresh token to obtain a new access token when the current one expires, allowing for continued authenticated access without re-entering credentials.
+
+## Request Body
+- **`email`** (string, required) - The user's email address.
+- **`password`** (string, required) - The user's password.
+
+## Example Request
+```json
+{
+  "email": "user@example.com",
+  "password": "SecurePassword123"
+}
+```
+
+## Response (200 OK)
+- **`access_token`** (string) - The JWT access token for authenticating subsequent requests.
+- **`refresh_token`** (string) - The JWT refresh token used to obtain a new access token once the current one expires.
+- **`token_type`** (string) - The type of token, typically "bearer".
+- **`expires_at`** (integer) - Unix timestamp indicating when the access token will expire.
+- **`refresh_expires_at`** (integer) - Unix timestamp indicating when the refresh token will expire.
+- **`user`** (object) - An object containing details about the authenticated user.
+  - **`id`** (string, UUID) - The user's unique identifier.
+  - **`email`** (string) - The user's email address.
+  - **`name`** (string) - The user's name.
+  - **`organization_id`** (string, UUID) - The unique identifier of the organization the user belongs to.
+
+## Example Response (200 OK)
+```json
+{
+    "access_token": "<string>",
+    "refresh_token": "<string>",
+    "token_type": "bearer",
+    "expires_at": 1770000000,
+    "refresh_expires_at": 1770004000,
+    "user": {
+        "id": "<string>>",
+        "email": "user@example.com",
+        "name": "User Name",
+        "organization_id": "<string>"
+    }
+}
+```
+
