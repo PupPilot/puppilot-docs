@@ -46,15 +46,21 @@
       ]
     },
     {
-      "group": "Vet Med Chat Endpoints",
+      "group": "Single-Shot Endpoints",
       "pages": [
-        "chat-endpoints/vet-med-chat-endpoint",
-        "chat-endpoints/vet-med-chatbot-endpoint",
-        "chat-endpoints/vet-med-live-chatbot-endpoint"
+        "chat-endpoints/vet-med-chat-endpoint"
       ]
     },
     {
-      "group": "Vet Med Agents",
+      "group": "Multi-Shot Endpoints",
+      "pages": [
+        "chat-endpoints/vet-med-chatbot-endpoint",
+        "chat-endpoints/vet-med-live-chatbot-endpoint",
+        "chat-endpoints/vet-med-chat-with-target-context"
+      ]
+    },
+    {
+      "group": "Agents",
       "pages": [
         "agents/search-medical-records",
         "agents/handouts",
@@ -65,7 +71,7 @@
       ]
     },
     {
-      "group": "Vet Med Workflow Automations",
+      "group": "Workflow Automations",
       "pages": [
         "workflow/scribing",
         "workflow/timeline-structuring",
@@ -158,8 +164,25 @@
         "api-reference/agent-endpoints/differential-diagnosis",
         "api-reference/agent-endpoints/fast-differential-diagnosis",
         "api-reference/agent-endpoints/treatment-plan",
-        "api-reference/agent-endpoints/fast-treatment-plan",
-        "api-reference/agent-endpoints/chat-agent"
+        "api-reference/agent-endpoints/fast-treatment-plan"
+      ]
+    },
+    {
+      "group": "Single-Shot Endpoints",
+      "pages": [
+        "api-reference/agent-endpoints/rag-verified-llm-call"
+      ]
+    },
+    {
+      "group": "Multi-Shot Endpoints",
+      "pages": [
+        {
+          "group": "Chat With Target Context",
+          "pages": [
+            "api-reference/multi-shot/authentication",
+            "api-reference/multi-shot/chat-with-target-context"
+          ]
+        }
       ]
     }
 
