@@ -1403,7 +1403,7 @@
                       "type": "object",
                       "properties": {
                         "id": { "type": "string", "format": "uuid", "example": "<string>" },
-                        "email": { "type": "string", "format": "email", "example": "agent_user@example.com" },
+                        "email": { "type": "string", "format": "email", "example": "user@example.com" },
                         "name": { "type": "string", "example": "User Name" },
                         "organization_id": { "type": "string", "format": "uuid", "example": "<string>" }
                       }
