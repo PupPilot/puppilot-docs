@@ -10,7 +10,7 @@ The Chat With Target Context endpoint empowers you to have dynamic, multi-turn c
 
 Puppilot can leverage two key pieces of information you provide:
 
-1.  **Target Context (`chat_context`):** This is an external body of text, such as a detailed transcript of a telehealth session with a pet owner, a set of case notes, or any other relevant document. Puppilot uses this as a knowledge base for the conversation.
+1.  **Target Context (`target_context`):** This is an external body of text, such as a detailed transcript of a telehealth session with a pet owner, a set of case notes, or any other relevant document. Puppilot uses this as a knowledge base for the conversation.
 2.  **Chat History (`chat_history`):** This is the record of the current, ongoing conversation you are having with Puppilot. By including this, Puppilot can remember previous questions and answers in the current session, leading to more natural and connected dialogue.
 
 This endpoint is ideal for in-depth discussions, follow-up questions, or any interaction where context significantly influences the desired output. 
@@ -21,16 +21,16 @@ This endpoint is ideal for in-depth discussions, follow-up questions, or any int
 
 When you send a request, you provide:
 -   Your current **`message`** to Puppilot.
--   The **`chat_context`** you want Puppilot to reference.
+-   The **`target_context`** you want Puppilot to reference.
 -   The **`chat_history`** of your session so far.
 
 Puppilot processes your message by considering both the specific context provided and the flow of your current conversation, aiming to deliver an informed and relevant response.
 
 ## Key Use Cases
 
--   **Analyzing Transcripts:** Upload a telehealth consultation transcript as the `chat_context` and ask Puppilot follow-up questions or request summaries based on that specific interaction.
--   **Interactive Case Review:** Provide patient medical records or case notes as the `chat_context` and discuss diagnostic possibilities or treatment options with Puppilot, referencing details from the notes.
--   **Iterative Information Refinement:** Engage in a step-by-step dialogue with Puppilot, building upon previous interactions (captured in `chat_history`) to explore a topic thoroughly, all while keeping an external document (in `chat_context`) as a central reference point.
+-   **Analyzing Transcripts:** Upload a telehealth consultation transcript as the `target_context` and ask Puppilot follow-up questions or request summaries based on that specific interaction.
+-   **Interactive Case Review:** Provide patient medical records or case notes as the `target_context` and discuss diagnostic possibilities or treatment options with Puppilot, referencing details from the notes.
+-   **Iterative Information Refinement:** Engage in a step-by-step dialogue with Puppilot, building upon previous interactions (captured in `chat_history`) to explore a topic thoroughly, all while keeping an external document (in `target_context`) as a central reference point.
 
 ## Request
 
@@ -41,7 +41,7 @@ Puppilot processes your message by considering both the specific context provide
 ### Request Body
 
 -   **`message`** (string, required): Your current question, statement, or instruction for Puppilot.
--   **`chat_context`** (string, optional): The external text or transcript that Puppilot should use as a reference for this conversational turn. This provides the background information.
+-   **`target_context`** (string, optional): The external text or transcript that Puppilot should use as a reference for this conversational turn. This provides the background information.
 -   **`chat_history`** (array of objects, optional): An array detailing the previous turns in your current conversation with Puppilot. Each object in the array represents one prior user input and Puppilot's corresponding output:
     -   `input` (string, required): A previous message sent by you to Puppilot.
     -   `output` (string, required): Puppilot's response to that input.
@@ -54,7 +54,7 @@ This example shows a user asking for guidance on urgent signs for a rabbit named
 ```json
 {
   "message": "Please provide guidance on urgent signs",
-  "chat_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
+  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
   "chat_history": [
      {
         "input": "what are the most likely differentials and why?",
@@ -76,7 +76,7 @@ This example shows a user asking for guidance on urgent signs for a rabbit named
 
 A successful request will return a JSON object containing Puppilot's response.
 
--   **`output`** (string): Puppilot's generated textual response, informed by your `message`, the `chat_context`, and the `chat_history`.
+-   **`output`** (string): Puppilot's generated textual response, informed by your `message`, the `target_context`, and the `chat_history`.
 
 ### Example Successful Response
 

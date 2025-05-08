@@ -1441,7 +1441,7 @@
     "/chat": {
       "post": {
         "summary": "Agent Chat with Target Context",
-        "description": "Provides multi-turn conversational capabilities with Puppilot, allowing a target context (e.g., a vet-owner chat) and the history of the ongoing chat with Puppilot to be included. This endpoint is used for engaging in a continuous dialogue where the agent remembers previous parts of the conversation (via chat_history) and can reference a specific external context (via chat_context). Requires Bearer authentication.",
+        "description": "Provides multi-turn conversational capabilities with Puppilot, allowing a target context (e.g., a vet-owner chat) and the history of the ongoing chat with Puppilot to be included. This endpoint is used for engaging in a continuous dialogue where the agent remembers previous parts of the conversation (via chat_history) and can reference a specific external context (via target_context). Requires Bearer authentication.",
         "tags": ["Agent Chat"],
         "security": [
           {
@@ -1465,7 +1465,7 @@
                     "description": "The latest message input from the user to Puppilot.",
                     "example": "Yes please provide guidance on urgent signs"
                   },
-                  "chat_context": {
+                  "target_context": {
                     "type": "string",
                     "description": "The target context for the chat, e.g., a transcript of a conversation between an owner and a vet.",
                     "example": "Owner: Hi, my rabbit Nibbles has been acting strangely... Vet: Thank you, that's very helpful."

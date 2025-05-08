@@ -15,7 +15,7 @@ Authentication is required for this endpoint. You must include a Bearer token (o
 ## Request Body
 
 -   **`message`** (string, required): The latest message or query from the user.
--   **`chat_context`** (string, optional): A string containing the target contextual information that Puppilot should be aware of. For example, this could be a detailed case history or a prior conversation transcript.
+-   **`target_context`** (string, optional): A string containing the target contextual information that Puppilot should be aware of. For example, this could be a detailed case history or a prior conversation transcript.
 -   **`chat_history`** (array of objects, optional): An array representing the history of the current chat session. Each object in the array should have the following structure:
     -   `input` (string, required): A previous message sent by the user.
     -   `output` (string, required): The corresponding response to that input.
@@ -26,7 +26,7 @@ Authentication is required for this endpoint. You must include a Bearer token (o
 ```json
 {
   "message": "Please provide guidance on urgent signs",
-  "chat_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
+  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
   "chat_history": [
      {
         "input": "what are the most likely differentials and why?",
@@ -44,7 +44,7 @@ Authentication is required for this endpoint. You must include a Bearer token (o
 
 ## Response (200 OK)
 
--   **`output`** (string): Puppilot's response to the user's message, taking into account the provided `chat_context` and `chat_history`.
+-   **`output`** (string): Puppilot's response to the user's message, taking into account the provided `target_context` and `chat_history`.
 
 ## Example Response (200 OK)
 
