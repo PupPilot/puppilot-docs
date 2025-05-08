@@ -1433,7 +1433,7 @@
         },
         "servers": [
           {
-            "url": "https://agents-api.puppilot.co"
+            "url": "https://agents.puppilot.co"
           }
         ]
       }
@@ -1450,7 +1450,7 @@
         ],
         "servers": [
           {
-            "url": "https://agents-api.puppilot.co"
+            "url": "https://agents.puppilot.co"
           }
         ],
         "requestBody": {
