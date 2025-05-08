@@ -15,8 +15,8 @@ Authentication is required for this endpoint. You must include a Bearer token (o
 ## Request Body
 
 -   **`message`** (string, required): The latest message or query from the user.
--   **`chat_context`** (string, required): A string containing the target contextual information that Puppilot should be aware of. For example, this could be a detailed case history or a prior conversation transcript.
--   **`chat_history`** (array of objects, required): An array representing the history of the current chat session. Each object in the array should have the following structure:
+-   **`chat_context`** (string, optional): A string containing the target contextual information that Puppilot should be aware of. For example, this could be a detailed case history or a prior conversation transcript.
+-   **`chat_history`** (array of objects, optional): An array representing the history of the current chat session. Each object in the array should have the following structure:
     -   `input` (string, required): A previous message sent by the user.
     -   `output` (string, required): The corresponding response to that input.
     -   `timestamp` (string, ISO 8601 date-time, required): The timestamp when the chat entry was recorded.

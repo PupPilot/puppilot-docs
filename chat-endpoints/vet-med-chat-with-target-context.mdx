@@ -41,8 +41,8 @@ Puppilot processes your message by considering both the specific context provide
 ### Request Body
 
 -   **`message`** (string, required): Your current question, statement, or instruction for Puppilot.
--   **`chat_context`** (string, required): The external text or transcript that Puppilot should use as a reference for this conversational turn. This provides the background information.
--   **`chat_history`** (array of objects, required): An array detailing the previous turns in your current conversation with Puppilot. Each object in the array represents one prior user input and Puppilot's corresponding output:
+-   **`chat_context`** (string, optional): The external text or transcript that Puppilot should use as a reference for this conversational turn. This provides the background information.
+-   **`chat_history`** (array of objects, optional): An array detailing the previous turns in your current conversation with Puppilot. Each object in the array represents one prior user input and Puppilot's corresponding output:
     -   `input` (string, required): A previous message sent by you to Puppilot.
     -   `output` (string, required): Puppilot's response to that input.
     -   `timestamp` (string, ISO 8601 date-time, required): The timestamp marking when this part of the conversation occurred (e.g., `"2025-05-05T10:00:00Z"`).
@@ -90,7 +90,7 @@ A successful request will return a JSON object containing Puppilot's response.
 
 The API uses standard HTTP status codes to indicate the success or failure of a request.
 
--   **400 Bad Request**: This may indicate that your request was malformed, such as missing required fields (e.g., `message`, `chat_context`, or `chat_history`) or if the JSON structure is invalid.
+-   **400 Bad Request**: This may indicate that your request was malformed, such as missing required fields (e.g., `message`) or if the JSON structure is invalid.
     *Example:*
     ```json
     {

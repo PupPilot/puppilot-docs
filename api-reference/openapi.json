@@ -1497,7 +1497,7 @@
                     }
                   }
                 },
-                "required": ["message", "chat_context", "chat_history"]
+                "required": ["message"]
               }
             }
           }
