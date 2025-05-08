@@ -1378,8 +1378,8 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "agent_user@example.com" },
-                  "password": { "type": "string", "example": "agentSecurePassword123" }
+                  "email": { "type": "string", "format": "email", "example": "user@example.com" },
+                  "password": { "type": "string", "example": "SecurePassword123" }
                 },
                 "required": ["email", "password"]
               }
