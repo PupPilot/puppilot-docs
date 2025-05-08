@@ -46,13 +46,13 @@
       ]
     },
     {
-      "group": "Single-Shot Chat Endpoint (no context)",
+      "group": "Completion Endpoints (no context)",
       "pages": [
         "chat-endpoints/vet-med-chat-endpoint"
       ]
     },
     {
-      "group": "Multi-Shot Chat Endpoints (with context)",
+      "group": "Chat Endpoints (with context)",
       "pages": [
         "chat-endpoints/vet-med-chatbot-endpoint",
         "chat-endpoints/vet-med-live-chatbot-endpoint",
@@ -168,13 +168,13 @@
       ]
     },
     {
-      "group": "Single-Shot Chat Endpoints (no context)",
+      "group": "Completion Endpoints (no context)",
       "pages": [
         "api-reference/agent-endpoints/rag-verified-llm-call"
       ]
     },
     {
-      "group": "Multi-Shot Chat Endpoints (with context)",
+      "group": "Chat Endpoints (with context)",
       "pages": [
         {
           "group": "Chat With Target Context",
