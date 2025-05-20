@@ -11,7 +11,7 @@ The Chat With Target Context endpoint empowers you to have dynamic, multi-turn c
 Puppilot can leverage two key pieces of information you provide:
 
 1.  **Target Context (`target_context`):** This is an external body of text, such as a detailed transcript of a telehealth session with a pet owner, a set of case notes, or any other relevant document. Puppilot uses this as a knowledge base for the conversation.
-2.  **Chat History (`chat_history`):** This is the record of the current, ongoing conversation you are having with Puppilot. By including this, Puppilot can remember previous questions and answers in the current session, leading to more natural and connected dialogue.
+2.  **Chat History:** The backend automatically maintains the history of your conversation with Puppilot using a unique `conversation_id`. This allows for natural, connected dialogue across multiple requests.
 
 This endpoint is ideal for in-depth discussions, follow-up questions, or any interaction where context significantly influences the desired output. 
 
@@ -21,52 +21,49 @@ This endpoint is ideal for in-depth discussions, follow-up questions, or any int
 
 When you send a request, you provide:
 -   Your current **`message`** to Puppilot.
--   The **`target_context`** you want Puppilot to reference.
--   The **`chat_history`** of your session so far.
+-   The **`target_context`** you want Puppilot to reference (optional).
+-   A **`conversation_id`** to maintain conversation context. For the first request, omit this field and the API will generate a new `conversation_id`. Include this in subsequent requests to maintain conversation context.
 
-Puppilot processes your message by considering both the specific context provided and the flow of your current conversation, aiming to deliver an informed and relevant response.
+Puppilot processes your message by considering both the specific context provided and the history of your conversation (maintained via `conversation_id`), aiming to deliver an informed and relevant response.
 
 ## Key Use Cases
 
 -   **Analyzing Transcripts:** Upload a telehealth consultation transcript as the `target_context` and ask Puppilot follow-up questions or request summaries based on that specific interaction.
 -   **Interactive Case Review:** Provide patient medical records or case notes as the `target_context` and discuss diagnostic possibilities or treatment options with Puppilot, referencing details from the notes.
--   **Iterative Information Refinement:** Engage in a step-by-step dialogue with Puppilot, building upon previous interactions (captured in `chat_history`) to explore a topic thoroughly, all while keeping an external document (in `target_context`) as a central reference point.
+-   **Iterative Information Refinement:** Engage in a step-by-step dialogue with Puppilot, building upon previous interactions (maintained via `conversation_id`) to explore a topic thoroughly, all while keeping an external document (in `target_context`) as a central reference point.
 
 ## Request
 
 -   **Endpoint:** `POST /chat`
 -   **Base URL:** `https://agents.puppilot.co`
 -   **Authentication:** `Bearer <YOUR_ACCESS_TOKEN>` in the Authorization header.
+-   **API Versioning:** Include the header `X-API-Version: 0.2.0` in your requests.
 
 ### Request Body
 
 -   **`message`** (string, required): Your current question, statement, or instruction for Puppilot.
 -   **`target_context`** (string, optional): The external text or transcript that Puppilot should use as a reference for this conversational turn. This provides the background information.
--   **`chat_history`** (array of objects, optional): An array detailing the previous turns in your current conversation with Puppilot. Each object in the array represents one prior user input and Puppilot's corresponding output:
-    -   `input` (string, required): A previous message sent by you to Puppilot.
-    -   `output` (string, required): Puppilot's response to that input.
-    -   `timestamp` (string, ISO 8601 date-time, required): The timestamp marking when this part of the conversation occurred (e.g., `"2025-05-05T10:00:00Z"`).
+-   **`conversation_id`** (string, optional): For the first request, omit this field and the API will generate a new `conversation_id`. Include this in subsequent requests to maintain conversation context.
 
-### Example Request
+### Example Request (First Request)
 
-This example shows a user asking for guidance on urgent signs for a rabbit named Nibbles, providing the vet-owner chat transcript as context, and the history of their current chat with Puppilot.
+This example shows a user starting a new conversation by asking for guidance on urgent signs for a rabbit named Nibbles, providing the vet-owner chat transcript as context.
 
 ```json
 {
   "message": "Please provide guidance on urgent signs",
-  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
-  "chat_history": [
-     {
-        "input": "what are the most likely differentials and why?",
-        "output": "Given Nibbles' sudden onset of anorexia, lethargy, reduced and smaller fecal output, possible anuria, and signs of discomfort such as teeth grinding and flinching, the most likely differential diagnoses include:\n\n1. **Gastrointestinal (GI) Stasis / Ileus**\n   - **Reasoning:** GI stasis is common in rabbits and often presents with anorexia, reduced fecal output, lethargy, and abdominal discomfort. Stress (such as the recent loud visit) and decreased food intake can precipitate this condition. The small, reduced fecal pellets and decreased urine production may reflect decreased GI motility and systemic effects.\n   - **Supporting signs:** Anorexia, lethargy, reduced fecal output, teeth grinding (a pain indicator), hiding behavior.\n   - **Diagnostics:** Physical exam focusing on abdominal palpation for gut motility and distension, abdominal radiographs to assess gas patterns and obstruction, and possibly ultrasound if available.\n   - **Differentiation:** GI obstruction would typically show more severe abdominal distension and possibly more severe pain; dental disease may cause anorexia but usually has more localized oral signs.\n\n2. **Dental Disease / Dental Pain**\n   - **Reasoning:** Dental problems are a common cause of anorexia and pain in rabbits. Although no prior dental issues were reported, rabbits can develop dental overgrowth or malocclusion that leads to pain, reduced food intake, and secondary GI stasis.\n   - **Supporting signs:** Teeth grinding (indicative of pain), flinching on handling, anorexia.\n   - **Diagnostics:** Oral examination under sedation or anesthesia, skull radiographs to assess tooth roots and alignment.\n   - **Differentiation:** Dental disease may be differentiated from primary GI stasis by the presence of oral lesions, malocclusion, or overgrown teeth.\n\n3. **Urinary Tract Obstruction or Disease**\n   - **Reasoning:** The possible absence of urine production raises concern for urinary tract issues such as obstruction or infection, which can cause discomfort and systemic illness.\n   - **Supporting signs:** Possible anuria, discomfort, lethargy.\n   - **Diagnostics:** Urinalysis, abdominal ultrasound to assess bladder and kidneys, palpation for bladder distension.\n   - **Differentiation:** Urinary disease may be differentiated by palpation of a distended bladder or abnormal urinalysis findings.\n\n4. **Pain or Stress-Related Behavioral Changes**\n   - **Reasoning:** The recent environmental stressor (loud visit) could contribute to stress-induced anorexia and hiding behavior, which can exacerbate GI stasis.\n   - **Supporting signs:** Hiding, lethargy.\n   - **Diagnostics:** Clinical history and exclusion of other causes.\n\n5. **Toxicity or Foreign Body Ingestion**\n   - **Reasoning:** Chewing on cardboard may introduce foreign material or toxins, potentially causing GI upset or obstruction.\n   - **Supporting signs:** Sudden anorexia, discomfort.\n   - **Diagnostics:** Abdominal imaging to detect foreign bodies.\n\n**Summary and Next Steps:**\n- The most likely primary diagnosis is GI stasis, possibly secondary to pain from dental disease or stress.\n- Immediate diagnostics should include thorough physical and oral examination, abdominal palpation, and radiographs.\n- Supportive care with fluid therapy, analgesia, and assisted feeding may be necessary.\n- Differentiation between GI stasis and dental disease is critical, as dental disease requires specific treatment.\n- Urinary issues should be ruled out given the possible anuria.\n\nPrompt veterinary evaluation is essential to confirm diagnosis and initiate appropriate treatment.",
-        "timestamp": "2025-05-04T10:00:00Z"
-    },
-    {
-        "input": "what can the owner do at home to treat GI stasis if they cannot get the rabbit to the vet",
-        "output": "For suspected rabbit GI stasis, veterinary evaluation is critical due to severity. If vet care isn't immediately available, owners can: 1) Offer fresh water frequently; syringe-feed if needed. 2) Provide high-fiber foods like leafy greens and unlimited hay; avoid low-fiber pellets/treats. 3) Syringe-feed critical care formula if not eating. 4) Keep environment calm to reduce stress. 5) Watch for pain signs (teeth grinding, flinching); give analgesics only if vet-approved. 6) Avoid meds without vet guidance. These are supportive, not definitive; prompt vet care is essential.",
-        "timestamp": "2025-05-05T10:00:00Z"
-    }
-  ]
+  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful."
+}
+```
+
+### Example Request (Subsequent Request)
+
+This example shows a follow-up question in the same conversation, using the `conversation_id` from the previous response.
+
+```json
+{
+  "message": "What about home care options?",
+  "conversation_id": "conv_1234567890abcdef"
 }
 ```
 
@@ -76,13 +73,15 @@ This example shows a user asking for guidance on urgent signs for a rabbit named
 
 A successful request will return a JSON object containing Puppilot's response.
 
--   **`output`** (string): Puppilot's generated textual response, informed by your `message`, the `target_context`, and the `chat_history`.
+-   **`output`** (string): Puppilot's generated textual response, informed by your `message`, the `target_context`, and the conversation history (maintained via `conversation_id`).
+-   **`conversation_id`** (string): The unique identifier for this conversation. Use this `conversation_id` in all subsequent requests to maintain conversation context.
 
 ### Example Successful Response
 
 ```json
 {
-    "output": "For Nibbles, urgent veterinary signs include: no fecal output or very small, dry pellets >24 hrs; no urination or urinary obstruction signs; severe lethargy/unresponsiveness; worsening anorexia despite care; severe pain (teeth grinding, vocalizing, flinching); abdominal bloating; labored/rapid breathing; collapse or inability to stand. Immediate vet care is critical to prevent serious complications."
+    "output": "For Nibbles, urgent veterinary signs include: no fecal output or very small, dry pellets >24 hrs; no urination or urinary obstruction signs; severe lethargy/unresponsiveness; worsening anorexia despite care; severe pain (teeth grinding, vocalizing, flinching); abdominal bloating; labored/rapid breathing; collapse or inability to stand. Immediate vet care is critical to prevent serious complications.",
+    "conversation_id": "conv_1234567890abcdef"
 }
 ```
 

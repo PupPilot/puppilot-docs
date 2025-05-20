@@ -8,49 +8,45 @@ openapi: 'POST /chat'
 This endpoint allows for multi-turn conversational interactions with Puppilot. It is designed for continuous dialogue where Puppilot can reference:
 
 1.  A **Target Context**: This is an external piece of information you provide, such as a transcript of a conversation between a pet owner and a veterinarian. Puppilot can use this context to inform its responses.
-2.  **Chat History**: This is the ongoing record of your current conversation with Puppilot. Puppilot uses this history to maintain coherence and remember previous turns in the dialogue.
+2.  **Chat History**: The backend automatically maintains the history of your conversation with Puppilot using a unique `conversation_id`. This allows for natural, connected dialogue across multiple requests.
 
-Authentication is required for this endpoint. You must include a Bearer token (obtained via the authentication endpoint) in the `Authorization` header of your request.
+Authentication is required for this endpoint. You must include a Bearer token (obtained via the authentication endpoint) in the `Authorization` header of your request. Additionally, you must include the header `X-API-Version: 0.2.0` in your requests.
 
 ## Request Body
 
 -   **`message`** (string, required): The latest message or query from the user.
 -   **`target_context`** (string, optional): A string containing the target contextual information that Puppilot should be aware of. For example, this could be a detailed case history or a prior conversation transcript.
--   **`chat_history`** (array of objects, optional): An array representing the history of the current chat session. Each object in the array should have the following structure:
-    -   `input` (string, required): A previous message sent by the user.
-    -   `output` (string, required): The corresponding response to that input.
-    -   `timestamp` (string, ISO 8601 date-time, required): The timestamp when the chat entry was recorded.
+-   **`conversation_id`** (string, optional): For the first request, omit this field and the API will generate a new `conversation_id`. Include this in subsequent requests to maintain conversation context.
 
-## Example Request
+## Example Request (First Request)
 
 ```json
 {
   "message": "Please provide guidance on urgent signs",
-  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful.",
-  "chat_history": [
-     {
-        "input": "what are the most likely differentials and why?",
-        "output": "Given Nibbles' sudden onset of anorexia, lethargy, reduced and smaller fecal output, possible anuria, and signs of discomfort such as teeth grinding and flinching, the most likely differential diagnoses include:\n\n1. **Gastrointestinal (GI) Stasis / Ileus**\n   - **Reasoning:** GI stasis is common in rabbits and often presents with anorexia, reduced fecal output, lethargy, and abdominal discomfort. Stress (such as the recent loud visit) and decreased food intake can precipitate this condition. The small, reduced fecal pellets and decreased urine production may reflect decreased GI motility and systemic effects.\n   - **Supporting signs:** Anorexia, lethargy, reduced fecal output, teeth grinding (a pain indicator), hiding behavior.\n   - **Diagnostics:** Physical exam focusing on abdominal palpation for gut motility and distension, abdominal radiographs to assess gas patterns and obstruction, and possibly ultrasound if available.\n   - **Differentiation:** GI obstruction would typically show more severe abdominal distension and possibly more severe pain; dental disease may cause anorexia but usually has more localized oral signs.\n\n2. **Dental Disease / Dental Pain**\n   - **Reasoning:** Dental problems are a common cause of anorexia and pain in rabbits. Although no prior dental issues were reported, rabbits can develop dental overgrowth or malocclusion that leads to pain, reduced food intake, and secondary GI stasis.\n   - **Supporting signs:** Teeth grinding (indicative of pain), flinching on handling, anorexia.\n   - **Diagnostics:** Oral examination under sedation or anesthesia, skull radiographs to assess tooth roots and alignment.\n   - **Differentiation:** Dental disease may be differentiated from primary GI stasis by the presence of oral lesions, malocclusion, or overgrown teeth.\n\n3. **Urinary Tract Obstruction or Disease**\n   - **Reasoning:** The possible absence of urine production raises concern for urinary tract issues such as obstruction or infection, which can cause discomfort and systemic illness.\n   - **Supporting signs:** Possible anuria, discomfort, lethargy.\n   - **Diagnostics:** Urinalysis, abdominal ultrasound to assess bladder and kidneys, palpation for bladder distension.\n   - **Differentiation:** Urinary disease may be differentiated by palpation of a distended bladder or abnormal urinalysis findings.\n\n4. **Pain or Stress-Related Behavioral Changes**\n   - **Reasoning:** The recent environmental stressor (loud visit) could contribute to stress-induced anorexia and hiding behavior, which can exacerbate GI stasis.\n   - **Supporting signs:** Hiding, lethargy.\n   - **Diagnostics:** Clinical history and exclusion of other causes.\n\n5. **Toxicity or Foreign Body Ingestion**\n   - **Reasoning:** Chewing on cardboard may introduce foreign material or toxins, potentially causing GI upset or obstruction.\n   - **Supporting signs:** Sudden anorexia, discomfort.\n   - **Diagnostics:** Abdominal imaging to detect foreign bodies.\n\n**Summary and Next Steps:**\n- The most likely primary diagnosis is GI stasis, possibly secondary to pain from dental disease or stress.\n- Immediate diagnostics should include thorough physical and oral examination, abdominal palpation, and radiographs.\n- Supportive care with fluid therapy, analgesia, and assisted feeding may be necessary.\n- Differentiation between GI stasis and dental disease is critical, as dental disease requires specific treatment.\n- Urinary issues should be ruled out given the possible anuria.\n\nPrompt veterinary evaluation is essential to confirm diagnosis and initiate appropriate treatment.",
-        "timestamp": "2025-05-04T10:00:00Z"
-    },
-    {
-        "input": "what can the owner do at home to treat GI stasis if they cannot get the rabbit to the vet",
-        "output": "For suspected rabbit GI stasis, veterinary evaluation is critical due to severity. If vet care isn't immediately available, owners can: 1) Offer fresh water frequently; syringe-feed if needed. 2) Provide high-fiber foods like leafy greens and unlimited hay; avoid low-fiber pellets/treats. 3) Syringe-feed critical care formula if not eating. 4) Keep environment calm to reduce stress. 5) Watch for pain signs (teeth grinding, flinching); give analgesics only if vet-approved. 6) Avoid meds without vet guidance. These are supportive, not definitive; prompt vet care is essential.",
-        "timestamp": "2025-05-05T10:00:00Z"
-    }
-  ]
+  "target_context": "Owner: Hi, my rabbit Nibbles has been acting strangely—she's not eating her hay and just sits in the corner of her cage. Vet: I'm sorry to hear that—how long has she been like this? Owner: Since yesterday afternoon. She usually runs to me when I open the cage but now she just stays still. Vet: Has she passed any stool or urine in the last 24 hours? Owner: Very little stool, and it looks smaller than usual. I haven't noticed any urine. Vet: Any signs of drooling, teeth grinding, or discomfort when you touch her belly? Owner: She did grind her teeth a little last night and flinched when I tried to pick her up. Vet: Has her diet changed recently, or could she have chewed on anything unusual? Owner: No diet changes, but she might have nibbled a bit of cardboard from her play area. Vet: Is she usually free-roaming, or has she had any recent stress—like a loud noise or new pet? Owner: She's free-roaming in the afternoons, and my nephew was over a couple days ago—he was a bit loud. Vet: How old is Nibbles and has she had any history of dental or digestive issues? Owner: She's 3 and has never had any problems until now. Vet: Thank you, that's very helpful."
+}
+```
+
+## Example Request (Subsequent Request)
+
+```json
+{
+  "message": "What about home care options?",
+  "conversation_id": "conv_1234567890abcdef"
 }
 ```
 
 ## Response (200 OK)
 
--   **`output`** (string): Puppilot's response to the user's message, taking into account the provided `target_context` and `chat_history`.
+-   **`output`** (string): Puppilot's response to the user's message, taking into account the provided `target_context` and chat history.
+-   **`conversation_id`** (string): The unique identifier for this conversation. Use this `conversation_id` in all subsequent requests to maintain conversation context.
 
 ## Example Response (200 OK)
 
 ```json
 {
-    "output": "For Nibbles, urgent veterinary signs include: no fecal output or very small, dry pellets >24 hrs; no urination or urinary obstruction signs; severe lethargy/unresponsiveness; worsening anorexia despite care; severe pain (teeth grinding, vocalizing, flinching); abdominal bloating; labored/rapid breathing; collapse or inability to stand. Immediate vet care is critical to prevent serious complications."
+    "output": "For Nibbles, urgent veterinary signs include: no fecal output or very small, dry pellets >24 hrs; no urination or urinary obstruction signs; severe lethargy/unresponsiveness; worsening anorexia despite care; severe pain (teeth grinding, vocalizing, flinching); abdominal bloating; labored/rapid breathing; collapse or inability to stand. Immediate vet care is critical to prevent serious complications.",
+    "conversation_id": "conv_1234567890abcdef"
 }
 ```
 
