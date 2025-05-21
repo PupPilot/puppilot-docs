@@ -1477,7 +1477,7 @@
                       "example": "conv_1234567890abcdef"
                     }
                   },
-                  "required": ["output", "conversation_id"]
+                  "required": ["output"]
                 }
               }
             }
