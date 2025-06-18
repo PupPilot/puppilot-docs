@@ -1,0 +1,32 @@
+Once the PDF has been uploaded to the Puppilot system and the AI summarization process has been initiated, you can embed an iframe on your frontend to display the summary output.
+
+## Embedding the iframe
+
+To display a Puppilot summary within your platform, embed the following URL:
+
+```
+https://puppilot.co/embed/summary?patient_id={PATIENT_ID}
+```
+
+Replace `{PATIENT_ID}` with the same unique patient identifier you used during the upload process.
+
+### Example Implementation
+
+```html
+<iframe
+  src="https://puppilot.co/embed/summary?patient_id=123"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
+```
+
+### iframe Parameters
+
+- **patient_id** (required): The unique identifier for the patient associated with the uploaded PDF. This is passed as a URL query parameter. **(Ensure the `patient_id` parameter matches exactly with the ID used during the upload process)**
+- **width** (optional): Set the width of the iframe (default: 100%)
+- **height** (optional): Set the height of the iframe (recommended: 600px or more)
+- **frameborder** (optional): Set to "0" for a borderless iframe
+
+

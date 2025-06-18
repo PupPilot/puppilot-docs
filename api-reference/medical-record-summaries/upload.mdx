@@ -1,0 +1,48 @@
+
+
+To upload medical record PDFs to the Puppilot system for processing and summarization, use the `process_timeline_and_summary` API endpoint.
+
+This endpoint uploads the PDF file to the Puppilot system and initiates our internal process to create summaries at all four detail levels.
+
+**Note**: Some PDF documents may take a while (up to a few hours) to process, depending on the size and complexity of the document.
+
+## Calling the Endpoint
+
+The payload for this endpoint includes two required fields:
+
+- `pdfURL` (string): The file location of the PDF
+- `patient_id` (string): A unique identifier for the patient associated with the PDF
+
+### Example Request
+
+```http
+POST /api/process_timeline_and_summary
+```
+
+**Headers:**
+```
+Content-Type: application/json
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+*We will provide you with your API token during onboarding.*
+
+**Request Body:**
+```json
+{
+  "pdfFile": "https://path/to/patient_123.pdf",
+  "patient_id": "123"
+}
+```
+
+### Response
+
+Upon a successful POST request, the endpoint will return:
+
+```json
+{
+  "message": "Successfully uploaded file and added to the processing queue."
+}
+```
+
+This response indicates that your PDF has been successfully uploaded and queued for processing. The system will automatically generate all four summary levels (Brief, Focused, Detailed, and Deep Dive) once processing is complete.

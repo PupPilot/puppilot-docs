@@ -77,7 +77,81 @@
         "workflow/timeline-structuring",
         "workflow/medical-record-chatbot",
         "workflow/medical-record-collection",
-        "workflow/data-transfer"
+        "workflow/data-transfer",
+        {
+          "group": "Scribing API Endpoints",
+          "pages": [
+            "api-reference/scribing-endpoints/overview",
+            {
+              "group": "Auth",
+              "pages": [
+                "api-reference/scribing-endpoints/auth/authentication",
+                "api-reference/scribing-endpoints/auth/refresh-token",
+                "api-reference/scribing-endpoints/auth/reset-password-request",
+                "api-reference/scribing-endpoints/auth/reset-password"
+
+              ]
+            },
+            {
+              "group": "User",
+              "pages": [
+                "api-reference/scribing-endpoints/user/user",
+                "api-reference/scribing-endpoints/user/change-password"
+              ]
+            },
+            {
+              "group": "Scribe",
+              "pages": [
+                "api-reference/scribing-endpoints/scribe/request-scribe",
+                "api-reference/scribing-endpoints/scribe/get-scribe",
+                "api-reference/scribing-endpoints/scribe/get-all-scribes"
+              ]
+            },
+            {
+              "group": "RecordingSessions",
+              "pages": [
+                "api-reference/scribing-endpoints/recording-sessions/create-recording-session",
+                "api-reference/scribing-endpoints/recording-sessions/get-recording-session",
+                "api-reference/scribing-endpoints/recording-sessions/get-all-recording-sessions"
+              ]
+            },
+            {
+              "group": "Template",
+              "pages": [
+                "api-reference/scribing-endpoints/template/get-all-templates"
+              ]
+            },
+            {
+              "group": "Audio",
+              "pages": [
+                "api-reference/scribing-endpoints/audio/upload-audio"
+              ]
+            },
+            {
+              "group": "Organization",
+              "pages": [
+                "api-reference/scribing-endpoints/organization/get-organization",
+                "api-reference/scribing-endpoints/organization/email-notifications"
+              ]
+            },
+            {
+              "group": "Webhook",
+              "pages": [
+                "api-reference/scribing-endpoints/webhook/configure-endpoint",
+                "api-reference/scribing-endpoints/webhook/register-url", 
+                "api-reference/scribing-endpoints/webhook/change-status"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Medical Record Summaries",
+          "pages": [
+            "api-reference/medical-record-summaries/overview",
+            "api-reference/medical-record-summaries/upload",
+            "api-reference/medical-record-summaries/embed"
+          ]
+        }
       ]
     },
     {
@@ -89,72 +163,6 @@
         "solutions/clinical",
         "solutions/education",
         "solutions/software"
-      ]
-    },
-    {
-      "group": "Scribing API Endpoints",
-      "pages": [
-        "api-reference/scribing-endpoints/overview",
-        {
-          "group": "Auth",
-          "pages": [
-            "api-reference/scribing-endpoints/auth/authentication",
-            "api-reference/scribing-endpoints/auth/refresh-token",
-            "api-reference/scribing-endpoints/auth/reset-password-request",
-            "api-reference/scribing-endpoints/auth/reset-password"
-
-          ]
-        },
-        {
-          "group": "User",
-          "pages": [
-            "api-reference/scribing-endpoints/user/user",
-            "api-reference/scribing-endpoints/user/change-password"
-          ]
-        },
-        {
-          "group": "Scribe",
-          "pages": [
-            "api-reference/scribing-endpoints/scribe/request-scribe",
-            "api-reference/scribing-endpoints/scribe/get-scribe",
-            "api-reference/scribing-endpoints/scribe/get-all-scribes"
-          ]
-        },
-        {
-          "group": "RecordingSessions",
-          "pages": [
-            "api-reference/scribing-endpoints/recording-sessions/create-recording-session",
-            "api-reference/scribing-endpoints/recording-sessions/get-recording-session",
-            "api-reference/scribing-endpoints/recording-sessions/get-all-recording-sessions"
-          ]
-        },
-        {
-          "group": "Template",
-          "pages": [
-            "api-reference/scribing-endpoints/template/get-all-templates"
-          ]
-        },
-        {
-          "group": "Audio",
-          "pages": [
-            "api-reference/scribing-endpoints/audio/upload-audio"
-          ]
-        },
-        {
-          "group": "Organization",
-          "pages": [
-            "api-reference/scribing-endpoints/organization/get-organization",
-            "api-reference/scribing-endpoints/organization/email-notifications"
-          ]
-        },
-        {
-          "group": "Webhook",
-          "pages": [
-            "api-reference/scribing-endpoints/webhook/configure-endpoint",
-            "api-reference/scribing-endpoints/webhook/register-url", 
-            "api-reference/scribing-endpoints/webhook/change-status"
-          ]
-        }
       ]
     },
     {
@@ -185,7 +193,6 @@
         }
       ]
     }
-
   ],
   "footerSocials": {
     "instagram": "https://www.instagram.com/puppilot.ai",
