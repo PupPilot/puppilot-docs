@@ -1,6 +1,6 @@
 
 
-To upload medical record PDFs to the Puppilot system for processing and summarization, use the `process_timeline_and_summary` API endpoint.
+To upload medical record PDFs to the Puppilot system for processing and summarization, use the `timeline/upload-pdf` API endpoint.
 
 This endpoint uploads the PDF file to the Puppilot system and initiates our internal process to create summaries at all four detail levels.
 
@@ -8,31 +8,36 @@ This endpoint uploads the PDF file to the Puppilot system and initiates our inte
 
 ## Calling the Endpoint
 
-The payload for this endpoint includes two required fields:
+To upload a PDF, send a `POST` request to the `/timeline/upload-pdf` endpoint with the following form data:
 
-- `pdfURL` (string): The file location of the PDF
-- `patient_id` (string): A unique identifier for the patient associated with the PDF
+- `file`: **(required)** The PDF file to upload.
 
-### Example Request
-
-```http
-POST /api/process_timeline_and_summary
-```
 
 **Headers:**
 ```
 Content-Type: application/json
-Authorization: Bearer YOUR_API_TOKEN
 ```
 
-*We will provide you with your API token during onboarding.*
-
-**Request Body:**
+**Example: Upload a PDF using cURL**
 ```json
-{
-  "pdfURL": "https://path/to/patient_123.pdf",
-  "patient_id": "123"
-}
+curl -X POST https://agents.puppilot.co/timeline/upload-pdf \
+  -F "file=@./path/to/file.pdf"
+
+```
+
+**Example: Upload a PDF using Node.js (Axios)**
+
+```js
+import axios from "axios";
+import FormData from "form-data";
+import fs from "fs";
+
+const formData = new FormData();
+formData.append("file", fs.createReadStream("./file.pdf"));
+
+axios.post("https://agents.puppilot.co/timeline/upload-pdf", formData, {
+  headers: formData.getHeaders(),
+});
 ```
 
 ### Response

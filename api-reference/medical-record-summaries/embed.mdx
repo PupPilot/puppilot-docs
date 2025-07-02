@@ -8,13 +8,20 @@ To display a Puppilot summary within your platform, embed the following URL:
 https://puppilot.co/embed/summary?patient_id={PATIENT_ID}
 ```
 
-Replace `{PATIENT_ID}` with the same unique patient identifier you used during the upload process.
+`{PATIENT_ID}`: A unique identifier for the patient. This is passed as a URL query parameter and refers to the name of the original file that was uploaded, including the extension but not including the entire path. 
+
+If - for example - the initial upload call was 
+```json
+curl -X POST https://agents.puppilot.co/timeline/upload-pdf \
+  -F "file=@./medical-records/dogs/tedd.pdf"
+```
+Then the `patient_id` is **tedd.pdf**
 
 ### Example Implementation
 
 ```html
 <iframe
-  src="https://puppilot.co/embed/summary?patient_id=123"
+  src="https://puppilot.co/embed/summary?patient_id=tedd.pdf"
   width="100%"
   height="600px"
   frameborder="0"
@@ -30,7 +37,7 @@ Replace `{PATIENT_ID}` with the same unique patient identifier you used during t
 
 ### iframe Parameters
 
-- **patient_id** (required): The unique identifier for the patient associated with the uploaded PDF. This is passed as a URL query parameter. **(Ensure the `patient_id` parameter matches exactly with the ID used during the upload process)**
+- **patient_id** (required): A unique identifier for the patient. This is passed as a URL query parameter and refers to the name of the original file that was uploaded, including the extension but not including the entire path.
 - **width** (optional): Set the width of the iframe (default: 100%)
 - **height** (optional): Set the height of the iframe (recommended: 600px or more)
 - **frameborder** (optional): Set to "0" for a borderless iframe
